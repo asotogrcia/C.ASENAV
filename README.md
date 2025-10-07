@@ -86,3 +86,10 @@ Crea un archivo .env dentro de la carpeta ASENAV/ con el siguiente contenido (aj
 |      Augusto Soto     | Analista / Fullstack   | @asotogrcia  |
 |   Gustavo Huequemán   | Analista / Fullstack   |  @gahg0301   |
 |     Felipe Badilla    | Analista / Fullstack   | @pendiente   |
+
+
+---
+## 📄 Licencia
+
+**Este proyecto es netamente de uso académico y pertenece al grupo de desarrollo conformado por Augusto Soto, Gustavo Huequemán y Felipe Badilla.**
+---
