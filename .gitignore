@@ -1,0 +1,52 @@
+# Virtualenvs (puede tener varios nombres)
+venv/
+.env/
+.venv/
+ENV/
+env/
+ASENAV-venv/
+ASENAV-venv*/
+ASENAV- venv*/
+
+# Entorno / variables de entorno
+.env
+*.env
+
+# Django / Python
+__pycache__/
+*.py[cod]
+*$py.class
+db.sqlite3
+
+# Migrations (mejor mantenerlas en el repo; descomenta si quieres ignorarlas)
+#*/migrations/*.py
+#!*/migrations/__init__.py
+
+# Archivos estáticos generados por collectstatic
+staticfiles/
+# si quieres ignorar la carpeta static del proyecto, descomenta:
+# /ASENAV/static/
+
+# Archivos de subida (media)
+media/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# OneDrive / temporales
+~$*
+*.tmp
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+
+# Tests / coverage
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
