@@ -9,9 +9,9 @@ El sistema permite gestionar mantenciones, agendar trabajos, registrar uso de re
 
 - **Python 3.12**
 - **Django 5.2.7**
-- **PostgreSQL**
+- **PostgreSQL 9.6**
 - **HTML, CSS, JavaScript**
-- **Bootstrap**
+- **Bootstrap 5.3.7**
 - **Virtualenv**
 
 ---
