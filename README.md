@@ -16,66 +16,68 @@ El sistema permite gestionar mantenciones, agendar trabajos, registrar uso de re
 
 ---
 
+---
 ## 🚀 Instrucciones de levantamiento (modo desarrollo)
 
 ### 1️⃣ Clonar el repositorio
----
 - git clone https://github.com/asotogrcia/C.ASENAV.git
 - cd C.ASENAV/ASENAV
----
+
 
 ### 2️⃣ Crear entorno virtual
-python -m venv ../ASENAV-venv
+- python -m venv ../ASENAV-venv
+
 
 ### 3️⃣ Activar entorno virtual
-../ASENAV-venv/Scripts/activate
+- ../ASENAV-venv/Scripts/activate
 
 
 ### 4️⃣ Instalar dependencias
-pip install -r requirements.txt
+- pip install -r requirements.txt
 
 
 ### 5️⃣ Configurar variables de entorno
 Crea un archivo .env dentro de la carpeta ASENAV/ con el siguiente contenido (ajustando tus credenciales):
 
-SECRET_KEY= **TU CLAVE SECRETA DJANGO**
-DEBUG=True
-DB_NAME= **TU BASE DE DATOS**
-DB_USER= **TU USUARIO**
-DB_PASSWORD= **TU CONTRASEÑA**
-DB_HOST=localhost **HOST POR DEFECTO**
-DB_PORT=5432 **PUERTO POR DEFECTO**
+- SECRET_KEY= **TU CLAVE SECRETA DJANGO**
+- DEBUG=True
+- DB_NAME= **TU BASE DE DATOS**
+- DB_USER= **TU USUARIO**
+- DB_PASSWORD= **TU CONTRASEÑA**
+- DB_HOST=localhost **HOST POR DEFECTO**
+- DB_PORT=5432 **PUERTO POR DEFECTO**
 
 ### 6️⃣ Aplicar migraciones
-python manage.py makemigrations
-python manage.py migrate
+- python manage.py makemigrations
+- python manage.py migrate
 
 
 ### 7️⃣ Crear superusuario
-python manage.py createsuperuser
+- python manage.py createsuperuser
 
 
 ### 8️⃣ Ejecutar servidor local
-python manage.py runserver
-**Luego abre "http://localhost:8000"**
+- python manage.py runserver
+- **Luego abre "http://localhost:8000"**
+---
 
-
+---
 ## 🌿 Flujo de trabajo en ramas
 
 ### ✅ Main Branch
-main → rama principal (versión estable)
+- main → rama principal (versión estable)
 
 ### 💻 Develop Branch
-develop → rama de desarrollo (donde se integran nuevas funciones)
+- develop → rama de desarrollo (donde se integran nuevas funciones)
 
 ### 🛠️ Features Branch
-feature/ → ramas individuales para nuevas funcionalidades
-    - Ejemplo: feature/registro-mantenciones
+- feature/ → ramas individuales para nuevas funcionalidades
+- Ejemplo: feature/registro-mantenciones
 
 ### 🔩 Fix Branch
-fix/ → ramas para corregir errores específicos
-    - Ejemplo: fix/reporte-pdf
-
+- fix/ → ramas para corregir errores específicos
+- Ejemplo: fix/reporte-pdf
+---
 
 ### 🧩 Colaboradores
 
