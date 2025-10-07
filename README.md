@@ -16,7 +16,6 @@ El sistema permite gestionar mantenciones, agendar trabajos, registrar uso de re
 
 ---
 
----
 ## 🚀 Instrucciones de levantamiento (modo desarrollo)
 
 ### 1️⃣ Clonar el repositorio
@@ -61,7 +60,6 @@ Crea un archivo .env dentro de la carpeta ASENAV/ con el siguiente contenido (aj
 - **Luego abre "http://localhost:8000"**
 ---
 
----
 ## 🌿 Flujo de trabajo en ramas
 
 ### ✅ Main Branch
