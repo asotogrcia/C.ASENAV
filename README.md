@@ -83,7 +83,7 @@ Crea un archivo .env dentro de la carpeta ASENAV/ con el siguiente contenido (aj
 |-----------------------|------------------------|--------------|
 |      Augusto Soto     | Analista / Fullstack   | @asotogrcia  |
 |   Gustavo Huequemán   | Analista / Fullstack   |  @gahg0301   |
-|     Felipe Badilla    | Analista / Fullstack   | @pendiente   |
+|     Felipe Badilla    | Analista / Fullstack   | @capphiliphe |
 
 
 ---
