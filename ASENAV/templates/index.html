@@ -1,0 +1,212 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        <!-- Texto fijo -->
+        <div class="carousel-caption-fixed">
+            <h1 class="display-4 fw-bold">ASENAV - CMMS</h1>
+            <p class="lead">Innovación naval desde el sur de Chile</p>
+            {% comment %} Marcador JS {% endcomment %}
+            <div id="scrollTrigger" style="height: 1px;"></div>
+        </div>
+        
+        <!-- Imágenes de fondo -->
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image: url({% static "IMG/ALONSO.png" %});"></div>
+            <div class="carousel-item" style="background-image: url({% static "IMG/LIVEFISH.jpg" %});"></div>
+            <div class="carousel-item" style="background-image: url({% static "IMG/MAGELLAN.png" %});"></div>
+        </div>
+        
+    </div>
+
+    
+    
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Funcionalidades del Sistema</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div>
+                            <i class="fas fa-sign-in-alt"></i>
+                            <h3>Acceso por Roles</h3>
+                            <p>Inicia sesión como administrador, técnico o bodeguero con permisos específicos para una gestión segura.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div>
+                            <i class="fas fa-tachometer-alt"></i>
+                            <h3>Dashboard Intuitivo</h3>
+                            <p>Visualiza mantenciones pendientes, equipos críticos y alertas de stock en un panel claro y funcional.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div>
+                            <i class="fas fa-ship"></i>
+                            <h3>Gestión de Equipos</h3>
+                            <p>Administra equipos en una tabla con buscador y opciones para agregar, editar o eliminar registros.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div>
+                            <i class="fas fa-calendar-check"></i>
+                            <h3>Planificación de Mantenciones</h3>
+                            <p>Consulta mantenciones en vistas de tabla o calendario, con estados (pendiente, en proceso, completada).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div>
+                            <i class="fas fa-warehouse"></i>
+                            <h3>Control de Repuestos</h3>
+                            <p>Gestiona inventarios con tablas de stock, alertas visuales y opciones para entradas y salidas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div>
+                            <i class="fas fa-file-export"></i>
+                            <h3>Reportes Personalizados</h3>
+                            <p>Genera reportes filtrables por fechas, equipos o técnicos, con exportación a PDF o Excel.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <h2 class="text-center mb-5">Proyectos Destacados de ASENAV</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="project-card">
+                        <div>
+                            <img src="{% static 'IMG/LIVEFISH.jpg' %}" alt="LIVE FISH CARRIER W3000" data-bs-toggle="modal" data-bs-target="#wellboatModal">
+                            <h3>LIVE FISH CARRIER W3000</h3>
+                            <p>Wellboat innovador con tecnología diésel-eléctrica para transporte sostenible de peces.</p>
+                            <button class="btn" data-bs-toggle="modal" data-bs-target="#wellboatModal">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="project-card">
+                        <div>
+                            <img src="{% static 'IMG/ALONSO.png' %}" alt="Alonso de Ercilla" data-bs-toggle="modal" data-bs-target="#ferryModal">
+                            <h3>Alonso de Ercilla</h3>
+                            <p>Ferry Ro-Ro construido para operaciones eficientes en rutas costeras chilenas.</p>
+                            <button class="btn" data-bs-toggle="modal" data-bs-target="#ferryModal">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="project-card">
+                        <div>
+                            <img src="{% static 'IMG/MAGELLAN.png' %}" alt="Magellan Explorer" data-bs-toggle="modal" data-bs-target="#cruiseModal">
+                            <h3>Magellan Explorer</h3>
+                            <p>Crucero de lujo para expediciones en la Antártida con diseño sostenible.</p>
+                            <button class="btn" data-bs-toggle="modal" data-bs-target="#cruiseModal">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <div class="modal fade" id="wellboatModal" tabindex="-1" aria-labelledby="wellboatModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="wellboatModalLabel">LIVE FISH CARRIER W3000 (Patagon XI)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="{% static 'IMG/LIVEFISH.jpg' %}" alt="" srcset="">
+                </div>
+                <div class="modal-footer">
+                    <p class="small text-center">Construido en 2023, este wellboat tiene una eslora de 79.80 m, manga de 17.20 m, calado de 6.15 m, potencia 2x1750 kW, velocidad 12 KN, capacidad de bodega 3.000 m³ y acomodaciones para 18 tripulantes. Diseñado por ASENAV y clasificado por American Bureau of Shipping, incorpora tecnología para alta seguridad y eficiencia en el transporte de peces vivos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ferryModal" tabindex="-1" aria-labelledby="ferryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ferryModalLabel">Alonso de Ercilla</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="{% static 'IMG/ALONSO.png' %}" alt="" srcset="">
+                </div>
+                <div class="modal-footer">
+                    <p class="small text-center">Construido en 2001, este ferry Ro-Ro/Passenger tiene una eslora de 62 m, manga de 12 m, tonelaje bruto de 397 y capacidad para pasajeros y vehículos. Opera bajo bandera chilena y es ideal para rutas costeras.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cruiseModal" tabindex="-1" aria-labelledby="cruiseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cruiseModalLabel">Magellan Explorer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="{% static 'IMG/MAGELLAN.png' %}" alt="" srcset="">
+                </div>
+                <div class="modal-footer">
+                    <p class="small text-center">Construido en 2019, este crucero de lujo tiene una eslora de 90.7 m, manga de 16.2 m, calado de 4.3 m, tonelaje bruto de 4900 y capacidad para 76-100 pasajeros. Clasificado PC6 para hielo, está diseñado para expediciones en la Antártida con énfasis en sostenibilidad.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="text-center mb-5">Contáctanos</h2>
+            <form id="contact-form">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="name" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="company" class="form-label">Empresa</label>
+                    <input type="text" class="form-control" id="company">
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Mensaje</label>
+                    <textarea class="form-control" id="message" rows="6" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+            </form>
+        </div>
+    </section>
+    
+{% endblock content %}
