@@ -14,7 +14,7 @@ document.getElementById('contact-form').addEventListener('submit', function (eve
 });
 
 
-
+// Trigger barra navegadora
 document.addEventListener("DOMContentLoaded", function () {
     const navbar = document.getElementById("mainNavbar");
     const logoAsenav = document.querySelectorAll("#logoAsenav path")
@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
             logoAsenav.forEach(p => {
                 p.setAttribute("fill", "#002B5B");
             });
+            
             navLinks.forEach(l => {
                 l.classList.add("nav-link-scrolled");
                 l.classList.remove("nav-link-solid");
