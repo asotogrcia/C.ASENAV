@@ -66,8 +66,24 @@
                         <a class="nav-link nav-link-solid" href="#contact"><i class="fas fa-envelope"></i> Contacto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-solid" href="#login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                        <span class="nav-link nav-link-solid fw-bold">|</span>
                     </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-user-gear"></i> Hola, {{ user.first_name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a href="#" class="dropdown-item nav-link drop-link"><i class="fa-solid fa-clipboard"></i> Dashboard</a></li>
+                            <li><a href="{% url "usuarios:logout" %}" class="dropdown-item nav-link drop-link"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Cerrar Sesión</a></li>
+                            
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-solid" href="{% url "usuarios:login" %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
