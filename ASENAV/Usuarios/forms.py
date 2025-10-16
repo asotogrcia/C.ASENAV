@@ -14,7 +14,12 @@ class RegistroForm(forms.ModelForm):
         label='Confirmar contraseña',
         widget=forms.PasswordInput(attrs={'class': 'form-control'})
     )
-
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'id_username_registro'}))
+    email = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    rut = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    telefono = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Usuario
