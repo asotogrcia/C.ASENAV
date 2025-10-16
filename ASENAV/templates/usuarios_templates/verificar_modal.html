@@ -1,27 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {% block title %}ASENAV - CMMS{% endblock  %}</title>
-    {% comment %} CSS BASE {% endcomment %}
-    <link rel="stylesheet" href="{% static 'CSS/base.css' %}">
-    {% comment %} CSS LOGIN {% endcomment %}
-    <link rel="stylesheet" href="{% static "CSS/login.css" %}">
-    {% comment %} BOOTSTRAP CSS {% endcomment %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-    {% comment %} Font Awesome para iconos {% endcomment %}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    {% comment %} Google Fonts: Roboto {% endcomment %}
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    {% comment %} NAVBAR {% endcomment %}
-    <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top navbar-transparent">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <svg id="logoAsenav" version="1.1" xmlns="http://www.w3.org/2000/svg" width="255" height="60" viewBox="0 0 255 60">
+<div class="modal fade" id="verificarModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header border-0 justify-content-center pt-4">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="255" height="60" viewBox="0 0 255 60">
                     <path d="M0 0 C13 0 13 0 16.796875 3.48046875 C17.82657335 5.02011453 18.80988198 6.59157834 19.75 8.1875 C20.27875732 8.99944824 20.80751465 9.81139648 21.35229492 10.64794922 C22.42164205 12.29317337 23.47362771 13.94982168 24.50732422 15.61767578 C26.25316753 18.4040577 28.11150534 21.09340886 30.01000977 23.77709961 C31.69592051 26.16897561 33.34453617 28.58695103 35 31 C35.33 20.77 35.66 10.54 36 0 C40.29 0 44.58 0 49 0 C49.33 8.58 49.66 17.16 50 26 C51.485 23.9375 52.97 21.875 54.5 19.75 C55.24672974 18.7283374 55.24672974 18.7283374 56.00854492 17.68603516 C58.19391433 14.67113092 60.23479373 11.68656854 61.98828125 8.3984375 C62.59027344 7.31820313 63.19226563 6.23796875 63.8125 5.125 C64.31394531 4.13757813 64.81539063 3.15015625 65.33203125 2.1328125 C68 0 68 0 81 0 C81 17.16 81 34.32 81 52 C76.71 52 72.42 52 68 52 C68 48.7 68 45.4 68 42 C63.71 42 59.42 42 55 42 C54.34 43.65 53.68 45.3 53 47 C50.73683421 50.81193467 49.60267861 51.829884 45.27734375 53.05078125 C40.0671591 53.5521999 34.50503415 54.04348876 30.24560547 50.56884766 C26.42978223 46.1733151 23.8186342 41.06293854 21 36 C18.69 32.7 16.38 29.4 14 26 C13.67 34.58 13.34 43.16 13 52 C8.71 52 4.42 52 0 52 C0 34.84 0 17.68 0 0 Z M67 25 C65.68 27.31 64.36 29.62 63 32 C64.65 32 66.3 32 68 32 C68 29.69 68 27.38 68 25 C67.67 25 67.34 25 67 25 Z " fill="#ffffffff" transform="translate(122,1)"/>
                     <path d="M0 0 C4.29 0 8.58 0 13 0 C13 17.16 13 34.32 13 52 C8.71 52 4.42 52 0 52 C0 48.7 0 45.4 0 42 C-4.29 42 -8.58 42 -13 42 C-13.99 44.475 -13.99 44.475 -15 47 C-16.609375 49.79296875 -16.609375 49.79296875 -19 52 C-21.96672677 52.37233017 -24.31856241 52.4808246 -27.25 52.3125 C-27.99507812 52.28994141 -28.74015625 52.26738281 -29.5078125 52.24414062 C-31.339409 52.18543561 -33.16996653 52.09575757 -35 52 C-31.75448499 45.84465101 -28.15001275 40.20401761 -24 34.625 C-19.1974958 28.07543653 -14.51193359 21.46100323 -9.9375 14.75 C-9.40189453 13.96447754 -8.86628906 13.17895508 -8.31445312 12.36962891 C-7.80720703 11.62374512 -7.29996094 10.87786133 -6.77734375 10.109375 C-6.2860498 9.40876953 -5.79475586 8.70816406 -5.28857422 7.98632812 C-3.80733951 5.81957097 -3.80733951 5.81957097 -2.44140625 2.453125 C-1.63574219 1.64359375 -0.83007812 0.8340625 0 0 Z M-1 25 C-2.32 27.31 -3.64 29.62 -5 32 C-3.35 32 -1.7 32 0 32 C0 29.69 0 27.38 0 25 C-0.33 25 -0.66 25 -1 25 Z " fill="#ffffffff" transform="translate(39,1)"/>
                     <path d="M0 0 C4.28206967 4.28206967 6.5 8.41491759 6.5 14.5 C4.37527424 14.55386629 2.25016348 14.59273071 0.125 14.625 C-1.65003906 14.65980469 -1.65003906 14.65980469 -3.4609375 14.6953125 C-6.5 14.5 -6.5 14.5 -8.5 12.5 C-9.82 12.5 -11.14 12.5 -12.5 12.5 C-12.5 13.82 -12.5 15.14 -12.5 16.5 C-11.54738281 16.79132812 -10.59476563 17.08265625 -9.61328125 17.3828125 C2.8794426 21.46573766 2.8794426 21.46573766 6.5 27.5 C8.46495363 31.42990726 7.83447687 36.20653321 7.5 40.5 C5.83736157 45.22539342 3.37317704 48.33103697 -0.5 51.5 C-6.19994707 53.9588007 -11.53275847 53.85125965 -17.5 52.5 C-22.3343543 50.08282285 -25.01226022 47.29120254 -27.5 42.5 C-28.08025474 39.79864598 -28.30896866 37.26995445 -28.5 34.5 C-23.88 34.5 -19.26 34.5 -14.5 34.5 C-13.84 35.82 -13.18 37.14 -12.5 38.5 C-10.025 38.005 -10.025 38.005 -7.5 37.5 C-7.17 36.51 -6.84 35.52 -6.5 34.5 C-8.9599256 31.56955172 -11.25351018 30.77394695 -14.875 29.6875 C-20.86748834 27.63451788 -23.64177007 25.21645987 -26.5 19.5 C-27.2658502 12.63245802 -26.60365011 8.08552376 -22.5 2.5 C-16.48465166 -2.96849849 -7.23239285 -3.09959694 0 0 Z " fill="#ffffffff" transform="translate(82.5,1.5)"/>
@@ -49,72 +30,21 @@
                     <path d="M0 0 C0.66 0 1.32 0 2 0 C2 4.29 2 8.58 2 13 C1.34 13 0.68 13 0 13 C0 8.71 0 4.42 0 0 Z " fill="#ffffffff" transform="translate(143,65)"/>
                     <path d="M0 0 C0.66 0 1.32 0 2 0 C2 4.29 2 8.58 2 13 C1.34 13 0.68 13 0 13 C0 8.71 0 4.42 0 0 Z " fill="#ffffffff" transform="translate(29,65)"/>
                 </svg>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-solid" href="#heroCarousel"><i class="fas fa-home"></i> Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-solid" href="#features"><i class="fas fa-cogs"></i> Características</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-solid" href="#projects"><i class="fas fa-ship"></i> Proyectos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-solid" href="#contact"><i class="fas fa-envelope"></i> Contacto</a>
-                    </li>
-                    <li class="nav-item">
-                        <span class="nav-link nav-link-solid fw-bold">|</span>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-user-gear"></i> Hola, {{ user.first_name }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a href="#" class="dropdown-item nav-link drop-link"><i class="fa-solid fa-clipboard"></i> Dashboard</a></li>
-                            <li><a href="{% url "usuarios:logout" %}" class="dropdown-item nav-link drop-link"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Cerrar Sesión</a></li>
-                            
-                        </ul>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-solid" href="#" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fas fa-sign-in-alt"></i> Login</a>
-                    </li>
-                    {% endif %}
-                </ul>
+            </div>
+            <div class="modal-body px-5 pb-4">
+                <h5 class="text-center mb-4">Verificar Código</h5>
+                <form id="verificarForm" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label>Código de Verificación</label>
+                        <input type="text" name="codigo" class="form-control mt-2" placeholder="Ingresa el código">
+                    </div>
+                    <div id="verificarError" class="text-danger small mb-2"></div>
+                    <div class="mt-1 d-flex justify-content-center align-items-center">
+                        <button type="submit" class="btn btn-primary w-75 rounded-pill py-2">Ingresar</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </nav>
-
-    {% block content %}
-    {% endblock %}
-
-
-    {% comment %} MODAL LOGIN - REGISTER {% endcomment %}
-    {% include "usuarios_templates/login_modal.html" %}
-
-    {% comment %} MODAL VERIFICACIÓN {% endcomment %}
-    {% include "usuarios_templates/verificar_modal.html" %}
-
-    {% comment %} FOOTER {% endcomment %}
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 ASENAV. Todos los derechos reservados.</p>
-            <p><a href="#contact">Contacto</a> | <a href="#login">Login</a> | <a href="#">Términos y Condiciones</a></p>
-        </div>
-    </footer>
-
-    {% comment %} SCRIPTS {% endcomment %}
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'JS/base.js' %}"></script>
-    <script src="{% static 'JS/login.js' %}"></script>
-    {% block scripts %}{% endblock %}
-</body>
-</html>
+    </div>
+</div>
