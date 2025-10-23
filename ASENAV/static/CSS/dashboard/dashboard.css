@@ -1,0 +1,61 @@
+:root {
+    --color-azul-oscuro: #022873;
+    --color-azul: #034AA6;
+    --color-azul-claro: #0468BF;
+    --color-gris-claro: #F2F2F2;
+}
+
+body {
+    background-color: var(--color-gris-claro);
+    color: var(--color-azul-oscuro);
+    overflow-x: hidden;
+}
+
+.dashboard-header {
+    background-color: var(--color-azul-oscuro);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    height: 60px;
+}
+
+#main-content {
+    padding-top: 80px;
+}
+
+.sidebar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100vh;
+    background-color: var(--color-azul);
+    color: white;
+    transition: all 0.3s ease;
+    z-index: 1100;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-pd {
+    padding: 1rem;
+}
+
+.sidebar a {
+    color: var(--color-gris-claro);
+    display: block;
+    padding: 0.8rem 1rem;
+    text-decoration: none;
+    border-radius: 0.4rem;
+}
+
+.sidebar a:hover {
+    background-color: var(--color-azul-claro);
+}
