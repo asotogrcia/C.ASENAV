@@ -1,11 +1,14 @@
 from django.db import models
-from Usuarios.models import Usuario
+from Mantenciones.models import Mantencion
 
 class Reporte(models.Model):
-    titulo = models.CharField(max_length=150)
-    descripcion = models.TextField()
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    creado_por = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    mantencion = models.OneToOneField(Mantencion, on_delete=models.CASCADE)
+    generado_en = models.DateTimeField(auto_now_add=True)
+    archivo_pdf = models.FileField(upload_to='reportes/', blank=True)
+
+    def generar_pdf(self):
+        # Lógica para generar PDF desde datos de mantención
+        pass
 
     def __str__(self):
-        return self.titulo
+        return f"Reporte de {self.mantencion}"
