@@ -1,0 +1,92 @@
+{% extends 'base/base_dashboard.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid mt-5 g-4">
+    <div class="text-center">
+        <h2 class="fw-bold text-primary mb-3">Panel General de Equipos del Astillero</h2>
+        <p class="text-muted mb-5">Resumen visual del estado y mantenciones de equipos utilizados en operaciones de
+        reparación naval.</p>
+    </div>
+    
+    <div class="row g-4 d-flex justify-content-around">
+        <!-- Estado general -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-3">Estado de los Equipos</h5>
+                    <canvas id="estadoEquiposChart" ></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tipo de mantenimiento -->
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-3">Tipo de Mantenciones</h5>
+                    <canvas id="tipoMantencionChart" ></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Equipos más intervenidos -->
+        <div class="col-lg-6 col-md-12">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-3">Equipos más Intervenidos</h5>
+                    <canvas id="equiposIntervenidosChart" ></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row g-4 mt-2 d-flex justify-content-between">
+        <!-- Mantenciones mensuales -->
+        <div class="col-lg-6 col-md-12">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-3">Evolución de Mantenciones por Mes</h5>
+                    <canvas id="mantencionesMensualesChart" height="140"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- Alertas -->
+        <div class="col-lg-6 col-md-12">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-3">Alertas Críticas</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Grúa #2 - Falla hidráulica
+                            <span class="badge bg-danger">Urgente</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Compresor #5 - Mantenimiento programado
+                            <span class="badge bg-warning text-dark">En curso</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Soldadora #3 - Operativa
+                            <span class="badge bg-success">OK</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row g-4 mt-2 d-flex justify-content-between">
+        <div class="col-lg-12 col-md-12">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-3">Próximas Mantenciones Programadas</h5>
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'JS/dashboard/dashboard.js' %}"></script>
+{% endblock %}

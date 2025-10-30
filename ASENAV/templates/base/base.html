@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,7 +76,7 @@
                             <i class="fa-solid fa-user-gear"></i> Hola, {{ user.first_name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a href="#" class="dropdown-item nav-link drop-link"><i class="fa-solid fa-clipboard"></i> Dashboard</a></li>
+                            <li><a href="{% url "dashboard" %}" class="dropdown-item nav-link drop-link"><i class="fa-solid fa-clipboard"></i> Dashboard</a></li>
                             <li><a href="{% url "usuarios:logout" %}" class="dropdown-item nav-link drop-link"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Cerrar Sesión</a></li>
                             
                         </ul>

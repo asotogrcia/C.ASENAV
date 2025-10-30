@@ -24,6 +24,12 @@ urlpatterns = [
     #Ruta Index
     path('', views.index, name="index" ),
 
+    #Ruta Dashboard
+    path('dashboard/', views.dashboard, name="dashboard"),
+
     #Ruta App Usuario
     path('usuarios/', include('Usuarios.urls', namespace='usuarios')),
+
+    #Ruta App Equipos
+    path('equipos/', include('Equipos.urls', namespace='equipos')),
 ]
