@@ -36,14 +36,17 @@
                 <form id="verificarForm" method="post">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label>Código de Verificación</label>
-                        <input type="text" name="codigo" class="form-control mt-2" placeholder="Ingresa el código">
+                        <label for="id_codigo" class="form-label">Código:</label>
+                        {{verificacion_form.codigo}}
                     </div>
                     <div id="verificarError" class="text-danger small mb-2"></div>
                     <div class="mt-1 d-flex justify-content-center align-items-center">
                         <button type="submit" class="btn btn-primary w-75 rounded-pill py-2">Ingresar</button>
                     </div>
                 </form>
+                <div class="text-center mt-3">
+                    <a href="#" id="openLoginVerify" class="text-decoration-none">¿Ya tienes cuenta? Inicia sesión</a>
+                </div>
             </div>
         </div>
     </div>

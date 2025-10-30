@@ -1,32 +1,5 @@
-$(document).ready(function () {
-    // Mostrar / ocultar sidebar
-    $("#toggleSidebar").on("click", function () {
-        $("#sidebar").toggleClass("active");
-    });
-
-    // Cerrar sidebar al hacer click fuera (en pantallas pequeñas)
-    $(document).on("click", function (e) {
-        if (!$(e.target).closest("#sidebar, #toggleSidebar").length) {
-            $("#sidebar").removeClass("active");
-        }
-    });
-
-    // Cargar contenido con AJAX
-    $(".sidebar-link").on("click", function (e) {
-        e.preventDefault();
-        const url = $(this).data("url");
-        $("#main-content").fadeOut(200, function () {
-            $.get(url, function (data) {
-                $("#main-content").html($(data).find("#main-content").html()).fadeIn(200);
-            });
-        });
-        $("#sidebar").removeClass("active");
-    });
-});
-
 // Función para gráficos
 document.addEventListener('DOMContentLoaded', function () {
-
     // Estado de los equipos
     new Chart(document.getElementById('estadoEquiposChart'), {
         type: 'doughnut',

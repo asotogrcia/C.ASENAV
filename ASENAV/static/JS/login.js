@@ -13,6 +13,20 @@ $(function () {
         setTimeout(() => $('#loginModal').modal('show'), 300);
     });
 
+    // Abrir modal de verificación desde registro
+    $('#openVerify').click(function(e){
+        e.preventDefault();
+        $('#registerModal').modal('hide');
+        setTimeout(() => $('#verificarModal').modal('show'), 300);
+    });
+    
+    // Abrir modal de login desde verificación
+    $('#openLoginVerify').click(function(e){
+        e.preventDefault();
+        $('#verificarModal').modal('hide');
+        setTimeout(() => $('#loginModal').modal('show'), 300);
+    });
+
     // Función para validar el registro a través de JSON - AJAX
     $('#registerForm').on('submit', function (e) {
         e.preventDefault();
