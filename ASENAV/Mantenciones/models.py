@@ -14,7 +14,7 @@ class Mantencion(models.Model):
         ('atrasada', 'Atrasada'),
     ]
 
-    equipo = models.ForeignKey('Equipo', on_delete=models.CASCADE)
+    equipo = models.ForeignKey(Equipo, on_delete=models.CASCADE)
     encargado = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
     fecha_programada = models.DateField()
     intervalo_dias = models.PositiveIntegerField(help_text="Días hasta la próxima mantención")
@@ -26,7 +26,7 @@ class Mantencion(models.Model):
     estado = models.CharField(max_length=20, choices=ESTADOS, default='pendiente')
     mantencion_anterior = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL)
 
-    repuestos = models.ManyToManyField('Repuesto', through='RepuestoMantencion')
+    repuestos = models.ManyToManyField(Repuesto, through='RepuestoMantencion')
 
     def __str__(self):
         return f"Mantención de {self.equipo.nombre} - {self.fecha_programada}"
