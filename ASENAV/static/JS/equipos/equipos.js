@@ -15,6 +15,7 @@ $.ajaxSetup({
 $('#nuevo-equipo').on('click', function () {
     $.get('/equipos/equipo_create_form/', function (data) {
         $('#equipoContent').html(data);
+        $('#equipo-form').attr('action', `/equipos/equipo_create_submit/`);
         setTimeout(() => $('#equipoModal').modal('show'), 300);
     });
 });
