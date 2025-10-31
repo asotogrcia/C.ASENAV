@@ -1,3 +1,20 @@
+function mostrarToast(mensaje, tipo = 'success') {
+    const toastEl = document.getElementById('toast-notificacion');
+    const toastBody = document.getElementById('toast-body');
+
+    // Cambiar color según tipo
+    toastEl.classList.remove('bg-success', 'bg-danger', 'bg-warning', 'bg-info');
+    toastEl.classList.add(`bg-${tipo}`);
+
+    toastBody.textContent = mensaje;
+
+    const toast = new bootstrap.Toast(toastEl, {
+        delay: 2000, // El toast se desaparece luego de 2 segundos
+        autohide: true
+    });
+    toast.show();
+}
+
 document.getElementById('contact-form').addEventListener('submit', function (event) {
     event.preventDefault();
     const name = document.getElementById('name').value;
@@ -6,10 +23,9 @@ document.getElementById('contact-form').addEventListener('submit', function (eve
     const message = document.getElementById('message').value;
 
     if (name && email && message) {
-        alert(`¡Gracias, ${name}! Hemos recibido tu mensaje y te contactaremos pronto.`);
-        this.reset();
+        mostrarToast('Gracias por tu mensaje, te contactaremos pronto!', 'success')
     } else {
-        alert('Por favor, completa los campos obligatorios (Nombre, Correo Electrónico y Mensaje).');
+        mostrarToast('Por favor, complete los campos requeridos.', 'warning');
     }
 });
 

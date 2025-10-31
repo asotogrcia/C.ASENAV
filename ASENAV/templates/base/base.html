@@ -91,8 +91,24 @@
         </div>
     </nav>
 
-    {% block content %}
-    {% endblock %}
+    
+    <main>
+        {% block content %}
+        {% endblock %}
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
+            <div id="toast-notificacion" class="toast toast-transparente align-items-center text-white bg-success border-0" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body" id="toast-body">
+                        Acción completada correctamente.
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Cerrar"></button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
 
 
     {% comment %} MODAL LOGIN - REGISTER {% endcomment %}
