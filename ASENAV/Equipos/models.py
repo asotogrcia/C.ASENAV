@@ -3,10 +3,10 @@ from django.utils import timezone
 
 class Equipo(models.Model):
     ESTADOS = [
-        ('optimo', 'Óptimo'),
-        ('advertencia', 'Advertencia'),
-        ('critico', 'Crítico'),
-        ('fuera_servicio', 'Fuera de servicio'),
+        ('Óptimo', 'Óptimo'),
+        ('Advertencia', 'Advertencia'),
+        ('Critico', 'Crítico'),
+        ('Fuera de Servicio', 'Fuera de Servicio'),
     ]
 
     nombre = models.CharField(max_length=100)
@@ -24,18 +24,24 @@ class Equipo(models.Model):
     
 
     def actualizar_estado(self):
+        # Si no hay una fecha de última mantención, el estado es advertencia
         if not self.ultima_mantencion:
             self.estado = 'advertencia'
             return
 
+        # Calcular los días transcurridos desde la última mantención
         dias_transcurridos = (timezone.now().date() - self.ultima_mantencion).days
         margen = self.margen_mantencion_dias
 
+        # Si los días transcurridos son menores a la mitad del margen, el estado es óptimo
         if dias_transcurridos < margen * 0.5:
             self.estado = 'optimo'
+        # Si los días transcurridos son menores al margen, el estado es advertencia
         elif dias_transcurridos < margen:
             self.estado = 'advertencia'
+        # Si los días transcurridos son menores a 1.5 veces el margen, el estado es crítico
         elif dias_transcurridos < margen * 1.5:
             self.estado = 'critico'
+        # En cualquier otro caso, el estado es fuera de servicio
         else:
             self.estado = 'fuera_servicio'

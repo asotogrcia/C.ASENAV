@@ -59,3 +59,9 @@ body {
 .sidebar a:hover {
     background-color: var(--color-azul-claro);
 }
+
+/* TOAST */
+.toast-transparente {
+  opacity: 0.9; /* semitransparente */
+  backdrop-filter: blur(4px); /* opcional: efecto de vidrio */
+}

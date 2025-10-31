@@ -1,0 +1,52 @@
+<!-- Tabla -->
+<table class="table table-hover table-bordered">
+    <thead class="table-light">
+        <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Estado</th>
+            <th>Activo</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for equipo in page_obj %}
+        <tr>
+            <td>{{ equipo.nombre }}</td>
+            <td>{{ equipo.categoria }}</td>
+            <td class="text-center">
+                {% if equipo.estado == 'Óptimo' %}
+                <span class="badge bg-success">Óptimo</span>
+                {% elif equipo.estado == 'Advertencia' %}
+                <span class="badge bg-warning">Advertencia</span>
+                {% elif equipo.estado == 'Critico' %}
+                <span class="badge bg-danger">Crítico</span>
+                {% elif equipo.estado == 'Fuera de Servicio' %}
+                <span class="badge bg-danger">Fuera de Servicio</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if equipo.activo %}
+                <span class="badge bg-success">Sí</span>
+                {% else %}
+                <span class="badge bg-danger">No</span>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                <!-- Ícono editar -->
+                <button class="btn btn-sm btn-outline-primary me-1 editar-equipo" data-id="{{ equipo.id }}">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+                <!-- Ícono eliminar -->
+                <button class="btn btn-sm btn-outline-danger eliminar-equipo" data-id="{{ equipo.id }}">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No se encontraron equipos.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
