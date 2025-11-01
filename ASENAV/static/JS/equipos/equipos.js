@@ -76,14 +76,7 @@ $(document).on('click', '.eliminar-equipo', function () {
 });
 
 
-//Cargar modal para ver detalladamente un equipo
-$(document).on('click', '.ver-equipo', function () {
-    const id = $(this).data('id');
-    $.get(`/equipos/equipo/${id}/detalle_modal/`, function (html) {
-        $('#detalleEquipoContent').html(html);
-        $('#detalleEquipoModal').modal('show');
-    });
-});
+
 
 
 //Gráfico de Pizza
@@ -137,7 +130,6 @@ function renderizarGraficoEstados() {
     });
 }
 
-// Función para buscar equipos
 let currentQuery = '';
 
 $(document).on('submit', '#buscador-equipos', function (e) {
@@ -146,7 +138,6 @@ $(document).on('submit', '#buscador-equipos', function (e) {
     $('#equiposList').load(`/equipos/tabla/?${currentQuery}`);
 });
 
-//Función para paginación
 $(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
     const baseUrl = $(this).attr('href'); // puede ser ?page=2 o ?q=...&page=2
