@@ -1,0 +1,33 @@
+<div class="container">
+    <dl class="row">
+        <dt class="col-sm-4">Nombre</dt>
+        <dd class="col-sm-8">{{ equipo.nombre }}</dd>
+
+        <dt class="col-sm-4">Categoría</dt>
+        <dd class="col-sm-8">{{ equipo.categoria }}</dd>
+
+        <dt class="col-sm-4">Descripción</dt>
+        <dd class="col-sm-8">{{ equipo.descripcion|default:"—" }}</dd>
+
+        <dt class="col-sm-4">Ubicación</dt>
+        <dd class="col-sm-8">{{ equipo.ubicacion|default:"—" }}</dd>
+
+        <dt class="col-sm-4">Estado</dt>
+        <dd class="col-sm-8">{{ equipo.estado }}</dd>
+
+        <dt class="col-sm-4">Activo</dt>
+        <dd class="col-sm-8">
+            {% if equipo.activo %}
+            <span class="badge bg-success">Sí</span>
+            {% else %}
+            <span class="badge bg-danger">No</span>
+            {% endif %}
+        </dd>
+
+        <dt class="col-sm-4">Última Mantención</dt>
+        <dd class="col-sm-8">{{ equipo.ultima_mantencion }}</dd>
+
+        <dt class="col-sm-4">Margen de Mantención</dt>
+        <dd class="col-sm-8">{{ equipo.margen_mantencion_dias }} días</dd>
+    </dl>
+</div>

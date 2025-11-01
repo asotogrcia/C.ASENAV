@@ -29,7 +29,8 @@
                     <hr>
                     <!-- Buscador -->
                     <form id="buscador-equipos" class="mb-3 d-flex" method="get">
-                        <input type="text" name="q" value="{{ query }}" class="form-control me-2" placeholder="Buscar equipo...">
+                        <input type="text" name="q" value="{{ query }}" class="form-control me-2"
+                            placeholder="Buscar equipo...">
                         <button type="submit" class="btn btn-outline-primary">Buscar</button>
                     </form>
                     <!-- Contenedor para tabla y paginador -->
@@ -148,6 +149,22 @@
                 <div id="equipoContent">
                     {% comment %} Contenido Modal Equipo {% endcomment %}
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} Modal Detalles {% endcomment %}
+<!-- Modal de detalle de equipo -->
+<div class="modal fade" id="detalleEquipoModal" tabindex="-1" aria-labelledby="detalleEquipoTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-white">
+                <h5 class="modal-title" id="detalleEquipoTitle">Detalle del Equipo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body" id="detalleEquipoContent">
+                {% comment %} Aquí se cargará el contenido vía AJAX {% endcomment %}
             </div>
         </div>
     </div>
