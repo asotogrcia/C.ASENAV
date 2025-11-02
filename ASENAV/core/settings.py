@@ -54,8 +54,6 @@ INSTALLED_APPS = [
     #MODULOS SISTEMA
     'Equipos',
     'Mantenciones',
-    'Notificaciones',
-    'Reportes',
     'Repuestos',
     'Usuarios'
 ]

@@ -1,15 +1,4 @@
-// Configura jQuery para incluir el token CSRF en cada POST
-function getCSRFToken() {
-    return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-}
 
-$.ajaxSetup({
-    beforeSend: function (xhr, settings) {
-        if (!/^GET|HEAD|OPTIONS|TRACE$/i.test(settings.type)) {
-            xhr.setRequestHeader("X-CSRFToken", getCSRFToken());
-        }
-    }
-});
 
 // Cargar el formulario en el modal
 $('#nuevo-equipo').on('click', function () {
@@ -153,5 +142,4 @@ $(document).on('click', '.pagination a', function (e) {
     const url = `/equipos/tabla/${baseUrl.includes('?') ? baseUrl + '&' + currentQuery : '?' + currentQuery}`;
     $('#equiposList').load(url);
 });
-
 

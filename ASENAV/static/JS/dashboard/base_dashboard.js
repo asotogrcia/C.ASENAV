@@ -31,3 +31,17 @@ function mostrarToast(mensaje, tipo = 'success') {
     toast.show();
 }
 
+
+// Configura jQuery para incluir el token CSRF en cada POST
+function getCSRFToken() {
+    return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+}
+
+// Función para obtener el token CSRF
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+        if (!/^GET|HEAD|OPTIONS|TRACE$/i.test(settings.type)) {
+            xhr.setRequestHeader("X-CSRFToken", getCSRFToken());
+        }
+    }
+});
