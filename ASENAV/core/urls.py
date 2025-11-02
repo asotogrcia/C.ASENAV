@@ -32,4 +32,10 @@ urlpatterns = [
 
     #Ruta App Equipos
     path('equipos/', include('Equipos.urls', namespace='equipos')),
+
+    #Ruta App Repuestos
+    path('repuestos/', include('Repuestos.urls', namespace='repuestos')),
+
+    #Ruta App Mantenciones
+    path('mantenciones/', include('Mantenciones.urls', namespace='mantenciones')),
 ]

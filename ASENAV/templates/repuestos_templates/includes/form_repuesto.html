@@ -1,0 +1,50 @@
+<form id="repuesto-form" method="POST" action="">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            {{ repuesto_form.nombre.label_tag }}
+            {{ repuesto_form.nombre }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            {{ repuesto_form.ubicacion.label_tag }}
+            {{ repuesto_form.ubicacion }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            {{ repuesto_form.descripcion.label_tag }}
+            {{ repuesto_form.descripcion }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            {{ repuesto_form.cantidad_stock.label_tag }}
+            {{ repuesto_form.cantidad_stock }}
+        </div>
+        <div class="col-md-4 mb-3">
+            {{ repuesto_form.stock_minimo.label_tag }}
+            {{ repuesto_form.stock_minimo }}
+        </div>
+        <div class="col-md-4 mb-3">
+            {{ repuesto_form.stock_maximo.label_tag }}
+            {{ repuesto_form.stock_maximo }}
+        </div>
+    </div>
+
+    <div class="row align-items-center">
+        <div class="col-md-6 mb-3">
+            <div class="form-check form-switch mt-2">
+                {{ repuesto_form.activo }}
+                <label class="form-check-label" for="id_activo_switch">{{ repuesto_form.activo.label }}</label>
+            </div>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end mb-3">
+            <button type="submit" class="btn btn-success rounded-pill px-4 py-2">Guardar</button>
+        </div>
+    </div>
+</form>

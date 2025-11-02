@@ -4,9 +4,11 @@
         <tr>
             <th>Nombre</th>
             <th>Categoría</th>
-            <th>Estado</th>
+            <th class="text-center">Estado</th>
             <th>Activo</th>
+            {% if request.user.rol != 'usuario' %}
             <th class="text-center">Acciones</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -32,20 +34,22 @@
                 <span class="badge bg-danger">No</span>
                 {% endif %}
             </td>
+            {% if request.user.rol != 'usuario' %}
             <td class="text-center">
                 <!-- Ícono editar -->
                 <button class="btn btn-sm btn-outline-primary me-1 editar-equipo" data-id="{{ equipo.id }}">
                     <i class="bi bi-pencil-square"></i>
                 </button>
                 <!-- Ícono ver -->
-                <button class="btn btn-sm btn-outline-success ver-equipo" data-id="{{ equipo.id }}">
-                    <i class="bi bi-eye"></i>
+                <button class="btn btn-sm btn-outline-success me-1 ver-equipo" data-id="{{ equipo.id }}">
+                    <i class="bi bi-eye"></i> 
                 </button>
                 <!-- Ícono eliminar -->
                 <button class="btn btn-sm btn-outline-danger eliminar-equipo" data-id="{{ equipo.id }}">
                     <i class="bi bi-trash"></i>
                 </button>
             </td>
+            {% endif %}
         </tr>
         {% empty %}
         <tr>

@@ -42,11 +42,10 @@ def equipos_dashboard(request):
         'critico': estados.get('Critico', 0),
         'fuera_servicio': estados.get('Fuera de Servicio', 0),
     }
-    return render(request, "dashboard_templates/equipos.html" , context)
+    return render(request, "equipos_templates/equipos.html" , context)
 
 #VISTA DE EQUIPOS - DETALLES
 @login_required
-@rol_requerido('administrador', 'supervisor', 'tecnico')
 def equipo_detalle_modal(request, pk):
     equipo = get_object_or_404(Equipo, pk=pk)
     return render(request, 'equipos_templates/includes/detalle_equipo_modal.html', {

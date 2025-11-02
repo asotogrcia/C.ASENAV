@@ -1,0 +1,43 @@
+<div class="container">
+    <dl class="row">
+        <dt class="col-sm-4">Nombre</dt>
+        <dd class="col-sm-8">{{ repuesto.nombre }}</dd>
+
+        <dt class="col-sm-4">Descripción</dt>
+        <dd class="col-sm-8">{{ repuesto.descripcion|default:"—" }}</dd>
+
+        <dt class="col-sm-4">Ubicación</dt>
+        <dd class="col-sm-8">{{ repuesto.ubicacion|default:"—" }}</dd>
+
+        <dt class="col-sm-4">Cantidad en Stock</dt>
+        <dd class="col-sm-8">{{ repuesto.cantidad_stock }}</dd>
+
+        <dt class="col-sm-4">Stock Mínimo</dt>
+        <dd class="col-sm-8">{{ repuesto.stock_minimo }}</dd>
+
+        <dt class="col-sm-4">Stock Máximo</dt>
+        <dd class="col-sm-8">{{ repuesto.stock_maximo }}</dd>
+
+        <dt class="col-sm-4">Estado de Stock</dt>
+        <dd class="col-sm-8">
+            {% if repuesto.cantidad_stock < repuesto.stock_minimo %} <span class="badge bg-danger">Bajo</span>
+                {% elif repuesto.cantidad_stock > repuesto.stock_maximo %}
+                <span class="badge bg-warning text-dark">Excedido</span>
+                {% else %}
+                <span class="badge bg-success">Óptimo</span>
+                {% endif %}
+        </dd>
+
+        <dt class="col-sm-4">Activo</dt>
+        <dd class="col-sm-8">
+            {% if repuesto.activo %}
+            <span class="badge bg-success">Sí</span>
+            {% else %}
+            <span class="badge bg-danger">No</span>
+            {% endif %}
+        </dd>
+
+        <dt class="col-sm-4">Fecha de Ingreso</dt>
+        <dd class="col-sm-8">{{ repuesto.fecha_ingreso|date:"d/m/Y" }}</dd>
+    </dl>
+</div>
