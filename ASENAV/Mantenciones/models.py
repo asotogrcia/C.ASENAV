@@ -15,11 +15,11 @@ class Mantencion(models.Model):
     ]
 
     equipo = models.ForeignKey(Equipo, on_delete=models.CASCADE)
-    encargado = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    encargado = models.ForeignKey( Usuario, on_delete=models.SET_NULL, null=True)
     fecha_programada = models.DateField()
-    intervalo_dias = models.PositiveIntegerField(help_text="Días hasta la próxima mantención")
+    intervalo_dias = models.PositiveIntegerField( help_text="Días hasta la próxima mantención")
     descripcion_general = models.TextField()
-    correos_notificacion = models.TextField(help_text="Separar correos por coma")
+    correos_notificacion = models.TextField( help_text="Separar correos por coma")
     realizada = models.BooleanField(default=False)
     descripcion_realizada = models.TextField(blank=True)
     archivos = models.FileField(upload_to='mantenciones/', blank=True, null=True)
@@ -30,37 +30,36 @@ class Mantencion(models.Model):
 
     def __str__(self):
         return f"Mantención de {self.equipo.nombre} - {self.fecha_programada}"
+    
+
+    # Actualiza el estado de la mantención
+    def save(self, *args, **kwargs):
+        self._actualizando_estado = True
+        self.actualizar_estado()
+        self._actualizando_estado = False
+        super().save(*args, **kwargs)
 
     # Devuelve la fecha de la próxima mantención
     def siguiente_fecha(self):
         # Se devuelve la fecha de la próxima mantención sumando el intervalo de días
         return self.fecha_programada + timedelta(days=self.intervalo_dias)
 
-
     # Actualiza el estado de la mantención según la fecha actual
     def actualizar_estado(self):
-        # Se obtiene la fecha actual
         hoy = timezone.now().date()
 
-        # Se verifica si la mantención ya se realizó
         if self.realizada:
-            # Si se realizó, se mantiene el estado como "realizada"
-            self.estado = 'realizada'
-        # Se verifica si la fecha actual es posterior a la fecha programada
+            self.estado = 'Realizada'
         elif hoy > self.fecha_programada:
-            # Si la fecha actual es posterior, se mantiene el estado como "atrasada"
-            self.estado = 'atrasada'
-        # Se verifica si la fecha actual es igual a la fecha programada
+            self.estado = 'Atrasada'
         elif hoy == self.fecha_programada:
-            # Si la fecha actual es igual, se mantiene el estado como "en_curso"
-            self.estado = 'en_curso'
+            self.estado = 'En curso'
         else:
-            # Si la fecha actual es anterior, se mantiene el estado como "pendiente"
-            self.estado = 'pendiente'
+            self.estado = 'Pendiente'
 
-        # Se guarda el estado actualizado
-        self.save()
-
+        # Solo guardar si no estamos dentro de save()
+        if not getattr(self, '_actualizando_estado', False):
+            self.save()
 
     # Finaliza una mantención y crea una nueva automáticamente
     def finalizar_mantencion(self, descripcion_final):
@@ -69,7 +68,7 @@ class Mantencion(models.Model):
         # Se guarda la descripción de la mantención realizada
         self.descripcion_realizada = descripcion_final
         # Se mantiene el estado como "realizada"
-        self.estado = 'realizada'
+        self.estado = 'Realizada'
         # Se guarda la mantención actualizada
         self.save()
 
@@ -78,23 +77,9 @@ class Mantencion(models.Model):
         # Se guarda el equipo actualizado
         self.equipo.save()
 
-        # Se crea una nueva mantención automáticamente
-        nueva_fecha = timezone.now().date() + timedelta(days=self.intervalo_dias)
-        # Se crea una nueva instancia de Mantención con los datos actuales
-        Mantencion.objects.create(
-            equipo=self.equipo,
-            encargado=self.encargado,
-            fecha_programada=nueva_fecha,
-            intervalo_dias=self.intervalo_dias,
-            descripcion_general=self.descripcion_general,
-            correos_notificacion=self.correos_notificacion,
-            estado='pendiente',
-            mantencion_anterior=self
-        )
     def enviar_notificacion(self):
         # Aquí puedes integrar lógica con send_mail o Celery
         pass
-
 
 
 class RepuestoMantencion(models.Model):
@@ -104,6 +89,15 @@ class RepuestoMantencion(models.Model):
 
     def save(self, *args, **kwargs):
         # Descontar stock al guardar
-        self.repuesto.stock_actual = max(0, self.repuesto.stock_actual - self.cantidad_usada)
+        self.repuesto.cantidad_stock = max( 0, self.repuesto.cantidad_stock - self.cantidad_usada)
         self.repuesto.save()
         super().save(*args, **kwargs)
+
+
+class ArchivoMantencion(models.Model):
+    mantencion = models.ForeignKey(Mantencion, on_delete=models.CASCADE, related_name='archivos_adjuntos')
+    archivo = models.FileField(upload_to='mantenciones/')
+    descripcion = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return self.archivo.name

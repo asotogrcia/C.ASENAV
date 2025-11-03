@@ -34,9 +34,9 @@
         <div class="row">
             <ul class="list-unstyled">
                 <li><a href="{% url "dashboard" %}" class="sidebar-link" data-url="#"><i class="fa-solid fa-house"></i> Inicio</a></li>
-                <li><a href="#" class="sidebar-link" data-url="#"><i class="fa-solid fa-screwdriver-wrench"></i> Mantenciones</a></li>
+                <li><a href="{% url "mantenciones:mantenciones_dashboard" %}" class="sidebar-link" data-url="#"><i class="fa-solid fa-screwdriver-wrench"></i> Mantenciones</a></li>
                 <li><a href="{% url "repuestos:repuestos" %}" class="sidebar-link" data-url="#"><i class="fa-solid fa-box"></i> Stock</a></li>
-                <li><a href="{% url "equipos:equipos_dashboard" %}" class="sidebar-link" data-url=""><i class="fa-solid fa-screwdriver"></i> Equipos</a></li>
+                <li><a href="{% url "equipos:equipos_dashboard" %}" class="sidebar-link" data-url="#"><i class="fa-solid fa-screwdriver"></i> Equipos</a></li>
                 <li><a href="#" class="sidebar-link" data-url="#"><i class="fa-solid fa-calendar-days"></i> Calendario</a></li>
             </ul>
         </div>
