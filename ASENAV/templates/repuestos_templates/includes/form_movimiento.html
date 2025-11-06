@@ -1,0 +1,22 @@
+<form id="movimiento-form" method="POST" action="">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ movimiento_form.repuesto.label_tag }}
+        {{ movimiento_form.repuesto }}
+    </div>
+    <div class="mb-3">
+        {{ movimiento_form.tipo.label_tag }}
+        {{ movimiento_form.tipo }}
+    </div>
+    <div class="mb-3">
+        {{ movimiento_form.cantidad.label_tag }}
+        {{ movimiento_form.cantidad }}
+    </div>
+    <div class="mb-3">
+        {{ movimiento_form.observacion.label_tag }}
+        {{ movimiento_form.observacion }}
+    </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-success">Registrar Movimiento</button>
+    </div>
+</form>

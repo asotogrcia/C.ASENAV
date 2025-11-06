@@ -1,0 +1,58 @@
+<table class="table table-hover align-middle">
+    <thead class="table-light">
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Rango</th>
+            <th scope="col">Estado</th>
+            <th scope="col">¿Activo?</th>
+            {% if request.user.rol != 'usuario' %}
+            <th scope="col" class="text-center">Acciones</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for repuesto in page_obj %}
+        <tr>
+            <td>{{ repuesto.nombre }}</td>
+            <td>{{ repuesto.cantidad_stock }}</td>
+            <td>{{ repuesto.stock_minimo }} - {{ repuesto.stock_maximo }}</td>
+            <td>
+                {% if repuesto.cantidad_stock < repuesto.stock_minimo %} <span class="badge bg-danger">Bajo</span>
+                    {% elif repuesto.cantidad_stock > repuesto.stock_maximo %}
+                    <span class="badge bg-warning text-dark">Excedido</span>
+                    {% else %}
+                    <span class="badge bg-success">Óptimo</span>
+                    {% endif %}
+            </td>
+            <td>
+                {% if repuesto.activo %}
+                <span class="badge bg-success">Sí</span>
+                {% else %}
+                <span class="badge bg-danger">No</span>
+                {% endif %}
+            </td>
+            {% if request.user.rol != 'usuario' %}
+            <td class="text-center">
+                <button class="btn btn-sm btn-outline-warning movimiento-repuesto" data-id="{{ repuesto.id }}">
+                    <i class="bi bi-box-arrow-in-down"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-primary editar-repuesto" data-id="{{ repuesto.id }}">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-success ver-repuesto" data-id="{{ repuesto.id }}">
+                    <i class="bi bi-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger eliminar-repuesto" data-id="{{ repuesto.id }}">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+            {% endif %}
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center text-muted">No se encontraron repuestos.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
