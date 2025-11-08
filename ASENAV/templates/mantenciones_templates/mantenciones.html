@@ -2,56 +2,78 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'CSS/equipos/equipos.css' %}">
+<link rel="stylesheet" href="{% static 'CSS/mantenciones/mantenciones.css' %}">
 {% endblock styles %}
 
 {% block content %}
 <div class="container-fluid mt-5">
     <div class="text-center mb-5">
-        <h2 class="fw-bold text-primary">Panel de Equipos - ASENAV</h2>
-        <p class="text-muted">Visualiza y administra el estado de los equipos utilizados en las
+        <h2 class="fw-bold text-primary">Panel de Mantenciones - ASENAV</h2>
+        <p class="text-muted">Visualiza y administra el estado y las mantenciones de los equipos utilizados en las
             operaciones de reparación naval.</p>
+    </div>
+    <div id="estadosMantenciones" class="row g-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Realizadas</h5>
+                    <p class="card-text display-6">{{ realizadas }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Atrasadas</h5>
+                    <p class="card-text display-6">{{ atrasadas }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">En curso</h5>
+                    <p class="card-text display-6">{{ en_curso }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Pendientes</h5>
+                    <p class="card-text display-6">{{ pendientes }}</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row g-4">
-        <!-- Lista de Equipos -->
-        <div class="col-lg-8 col-md-12">
+        <!-- Lista de Mantenciones -->
+        <div class="col-lg-12 col-md-12">
             <div class="card shadow-sm border-0 rounded-4 h-100">
                 <div class="card-body">
-                    <div class="row g-4 d-flex justify-content-evenly align-items-center">
+                    <div class="row g-4 d-flex justify-content-between align-items-center">
                         <div class="col-lg-12 col-md-12 col-sm-12 d-flex align-items-center justify-content-center">
-                            <h3 class="card-title text-center fw-bolder me-4">Lista de Equipos</h3>
-                            <button id="nuevo-equipo" class="btn btn-success rounded-circle">
+                            <h3 class="card-title text-center fw-bolder me-4">Lista de Mantenciones</h3>
+                            <button id="nueva-mantencion" class="btn btn-success rounded-circle">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
                     </div>
                     <hr>
                     <!-- Buscador -->
-                    <form id="buscador-equipos" class="mb-3 d-flex" method="get">
-                        <input type="text" name="q" value="{{ query }}" class="form-control me-2"
-                            placeholder="Buscar equipo...">
-                        <button type="submit" class="btn btn-outline-primary">Buscar</button>
+                    <form id="form-busqueda-mantenciones" class="input-group mb-3">
+                        <input type="text" name="q" class="form-control"
+                            placeholder="Buscar por equipo, encargado o descripción">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
                     </form>
-                    <!-- Contenedor para tabla y paginador -->
-                    <div id="equiposList">
-                        {% include "equipos_templates/includes/tabla_con_paginador.html" %}
+                    <div id="mantencionesList">
+                        {% include "mantenciones_templates/includes/tabla_mantenciones.html" %}
                     </div>
-                </div>
-            </div>
-        </div>
-        <!-- Estado de los Equipos -->
-        <div class="col-lg-4 col-md-12">
-            <div class="card shadow-sm border-0 rounded-4 h-100">
-                <div class="card-body">
-                    <div class="row g-4 d-flex justify-content-evenly align-items-center">
-                        <div class="col-lg-12 col-md-12 col-sm-12 d-flex align-items-center justify-content-center">
-                            <h3 class="card-title text-center fw-bolder">Estado de los Equipos</h3>
-                        </div>
-                    </div>
-                    <hr>
-                    <div id="graficoEstados" class="d-flex justify-content-center align-items-center">
-                        {% include "equipos_templates/includes/grafico_estados.html" %}
+                    <div>
+                        {% include "base/includes/paginador.html" %}
                     </div>
                 </div>
             </div>
@@ -59,8 +81,9 @@
     </div>
 </div>
 
-{% comment %} Modales {% endcomment %}
-<div class="modal fade" id="equipoModal" tabindex="-1">
+
+<!-- Modal Mantención -->
+<div class="modal fade" id="mantencionModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4" id="modal-content">
             <div class="modal-header border-0 justify-content-center pt-4">
@@ -144,33 +167,33 @@
             </div>
             <div class="modal-body px-5 pb-4">
                 <div class="d-flex justify-content-center align-content-center">
-                    <h3 id="equipoTitle" class="fw-bolder">Crear Equipo</h3>
+                    <h3 id="mantencionTitle" class="fw-bolder">Crear Mantencion</h3>
                 </div>
-                <div id="equipoContent">
-                    {% comment %} Contenido Modal Equipo {% endcomment %}
+                <div id="mantencionContent">
+                    {% comment %} Contenido Modal Mantencion {% endcomment %}
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-{% comment %} Modal Detalles {% endcomment %}
-<!-- Modal de detalle de equipo -->
-<div class="modal fade" id="detalleEquipoModal" tabindex="-1" aria-labelledby="detalleEquipoTitle" aria-hidden="true">
+<!-- Modal de detalle de mantención -->
+<div class="modal fade" id="detalleMantencionModal" tabindex="-1" aria-labelledby="detalleMantencionTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-white">
-                <h5 class="modal-title" id="detalleEquipoTitle">Detalle del Equipo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                <h5 class="modal-title" id="detalleMantencionTitle">Detalle del Equipo</h5>
+                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
-            <div class="modal-body" id="detalleEquipoContent">
+            <div class="modal-body" id="detalleMantencionContent">
                 {% comment %} Aquí se cargará el contenido vía AJAX {% endcomment %}
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
- 
+
 {% block scripts %}
-<script src="{% static 'JS/equipos/equipos.js' %}"></script>
+<script src="{% static 'JS/mantenciones/mantenciones.js' %}"></script>
 {% endblock %}
