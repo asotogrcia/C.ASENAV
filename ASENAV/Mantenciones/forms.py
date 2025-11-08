@@ -13,7 +13,7 @@ class MantencionForm(forms.ModelForm):
             'equipo': forms.Select(attrs={'class': 'form-select'}),
             'encargado': forms.Select(attrs={'class': 'form-select'}),
             'intervalo_dias': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
-            'fecha_programada': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'fecha_programada': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
             'descripcion_general': forms.Textarea(attrs={'rows': 3, 'style': 'resize: none;', 'class': 'form-control'}),
             'correos_notificacion': forms.Textarea(attrs={'rows': 2, 'style': 'resize: none;', 'class': 'form-control'}),
         }

@@ -3,7 +3,7 @@ $(document).on('submit', '#form-busqueda-mantenciones', function (e) {
     e.preventDefault();
     const query = $(this).find('input[name="q"]').val();
     $.get(`/mantenciones/mantenciones/tabla/?q=${query}`, function (html) {
-        $('#tablaMantenciones').html(html);
+        $('').html(html);
     });
 });
 
@@ -11,9 +11,11 @@ $(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
     const url = $(this).attr('href');
     $.get(url, function (html) {
-        $('#tablaMantenciones').html(html);
+        $('').html(html);
     });
 });
+
+
 
 
 // Abrir modal de nueva mantención
@@ -22,6 +24,25 @@ $('#nueva-mantencion').on('click', function () {
         $('#mantencionContent').html(html);
         $('#mantencion-form').attr('action', '/mantenciones/mantenciones/create/');
         $('#mantencionModal').modal('show');
+    });
+});
+
+//Abrir modal de editar mantención
+$('.editar-mantencion').on('click', function () {
+    const id = $(this).data('id');
+    $.get(`/mantenciones/mantenciones/${id}/editar_form/`, function (html) {
+        $('#mantencionContent').html(html);
+        $('#mantencion-form').attr('action', `/mantenciones/mantenciones/${id}/editar/`);
+        $('#mantencionModal').modal('show');
+    });
+});
+
+//Vista de detalles de mantención
+$('.ver-mantencion').on('click', function () {
+    const id = $(this).data('id');
+    $.get(`/mantenciones/mantenciones/${id}/ver/`, function (html) {
+        $('#detalleMantencionContent').html(html);
+        $('#detalleMantencionModal').modal('show');
     });
 });
 
@@ -50,7 +71,7 @@ $(document).on('submit', '#mantencion-form', function (e) {
 // Cargar tabla de mantenciones
 function cargarTablaMantenciones() {
     $.get('/mantenciones/mantenciones/tabla/', function (html) {
-        $('#tablaMantenciones').html(html);
+        $('#mantencionesList').html(html);
     });
 }
 

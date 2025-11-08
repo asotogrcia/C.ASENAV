@@ -133,7 +133,7 @@ def mantencion_detalle(request, id):
     repuestos_usados = RepuestoMantencion.objects.filter(mantencion=mantencion)
     archivos = mantencion.archivos_adjuntos.all()
 
-    return render(request, 'mantenciones_templates/detalle_mantencion.html', {
+    return render(request, 'mantenciones_templates/includes/detalle_mantencion_modal.html', {
         'mantencion': mantencion,
         'repuestos_usados': repuestos_usados,
         'archivos': archivos
@@ -189,6 +189,10 @@ def mantencion_finalizar(request, id):
 @rol_requerido('administrador', 'supervisor', 'tecnico')
 def mantencion_reporte_pdf(request, id):
     mantencion = get_object_or_404(Mantencion, id=id)
+    if not mantencion.realizada or not mantencion.descripcion_realizada:
+        return HttpResponse("La mantención aún no ha sido finalizada. No se puede generar el reporte.", status=400)
+
+
     repuestos_usados = RepuestoMantencion.objects.filter(mantencion=mantencion)
     archivos = mantencion.archivos_adjuntos.all()
 

@@ -129,7 +129,7 @@ let currentQuery = '';
 
 $(document).on('submit', '#buscador-equipos', function (e) {
     e.preventDefault();
-    currentQuery = $(this).serialize(); // ✅ guarda el query
+    currentQuery = $(this).serialize();
     $('#equiposList').load(`/equipos/tabla/?${currentQuery}`);
 });
 

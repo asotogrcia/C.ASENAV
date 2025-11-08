@@ -36,7 +36,7 @@
     <h1>Reporte de Mantención</h1>
 
     <p><strong>Equipo:</strong> {{ mantencion.equipo.nombre }}</p>
-    <p><strong>Encargado:</strong> {{ mantencion.encargado.nombre }}</p>
+    <p><strong>Encargado:</strong> {{ mantencion.encargado.first_name }} {{ mantencion.encargado.last_name }}</p>
     <p><strong>Fecha programada:</strong> {{ mantencion.fecha_programada }}</p>
     <p><strong>Fecha realizada:</strong> {{ mantencion.fecha_realizada }}</p>
     <p><strong>Descripción realizada:</strong> {{ mantencion.descripcion_realizada }}</p>
@@ -53,7 +53,7 @@
             <tbody>
                 {% for r in repuestos_usados %}
                 <tr>
-                    <td>{{ r.repuesto.nombre }}</td>
+                    <td>{{ r.repuestos.repuesto.nombre }}</td>
                     <td>{{ r.cantidad_usada }}</td>
                 </tr>
                 {% empty %}

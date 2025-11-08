@@ -12,8 +12,8 @@
         {% for m in mantenciones %}
         <tr>
             <td>{{ m.equipo.nombre }}</td>
-            <td>{{ m.fecha_programada|date:"d/m/Y" }}</td>
-            <td>
+            <td class=>{{ m.fecha_programada|date:"d/m/Y" }}</td>
+            <td class="text-center">
                 <span class="badge 
                     {% if m.estado == 'Pendiente' %}bg-secondary
                     {% elif m.estado == 'En curso' %}bg-primary
@@ -23,21 +23,23 @@
                     {{ m.estado }}
                 </span>
             </td>
-            <td>{{ m.encargado.nombre }}</td>
+            <td>{{ m.encargado.first_name }} {{ m.encargado.last_name }}</td>
             <td class="text-center">
                 <button class="btn btn-sm btn-outline-info ver-mantencion" data-id="{{ m.id }}">
                     <i class="bi bi-eye"></i>
                 </button>
-                {% if request.user.rol != 'usuario' %}
+                {% if request.user.rol != 'usuario' and m.estado != 'Realizada' %}
                 <button class="btn btn-sm btn-outline-warning editar-mantencion" data-id="{{ m.id }}">
                     <i class="bi bi-pencil"></i>
                 </button>
                 <button class="btn btn-sm btn-outline-danger eliminar-mantencion" data-id="{{ m.id }}">
                     <i class="bi bi-trash"></i>
                 </button>
-                <a href="{% url "mantenciones/mantencion_reporte_pdf" mantencion.id %}" target="_blank" class="btn btn-outline-dark btn-sm">
-                    <i class="bi bi-file-earmark-pdf"></i>
-                </a>
+                {% endif %}
+                {% if m.realizada and request.user.rol != 'usuario' %}
+                    <a href="{% url 'mantenciones:mantencion_reporte_pdf' m.id %}" target="_blank" class="btn btn-outline-dark btn-sm">
+                        <i class="bi bi-file-earmark-pdf"></i>
+                    </a>
                 {% endif %}
             </td>
         </tr>

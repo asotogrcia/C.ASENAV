@@ -12,7 +12,7 @@
         <p class="text-muted">Visualiza y administra el estado y las mantenciones de los equipos utilizados en las
             operaciones de reparación naval.</p>
     </div>
-    <div class="row g-4">
+    <div id="estadosMantenciones" class="row g-4">
         <div class="col-md-3">
             <div class="card text-white bg-success mb-3">
                 <div class="card-body">
@@ -170,12 +170,28 @@
                     <h3 id="mantencionTitle" class="fw-bolder">Crear Mantencion</h3>
                 </div>
                 <div id="mantencionContent">
-                    {% comment %} Contenido Modal Repuesto {% endcomment %}
+                    {% comment %} Contenido Modal Mantencion {% endcomment %}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal de detalle de mantención -->
+<div class="modal fade" id="detalleMantencionModal" tabindex="-1" aria-labelledby="detalleMantencionTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-white">
+                <h5 class="modal-title" id="detalleMantencionTitle">Detalle del Equipo</h5>
+                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body" id="detalleMantencionContent">
+                {% comment %} Aquí se cargará el contenido vía AJAX {% endcomment %}
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block scripts %}

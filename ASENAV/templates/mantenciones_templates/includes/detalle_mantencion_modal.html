@@ -1,0 +1,50 @@
+<div class="container">
+    <dl class="row">
+        <dt class="col-sm-4">Equipo:</dt>
+        <dd class="col-sm-8">{{ mantencion.equipo }}</dd>
+
+        <dt class="col-sm-4">Encargado:</dt>
+        <dd class="col-sm-8">{{ mantencion.encargado.first_name }} {{ mantencion.encargado.last_name }}</dd>
+
+        <dt class="col-sm-4">Fecha Programada:</dt>
+        <dd class="col-sm-8">{{ mantencion.fecha_programada}}</dd>
+
+        <dt class="col-sm-4">Descripción:</dt>
+        <dd class="col-sm-8">{{ mantencion.descripcion_general }}</dd>
+
+        <dt class="col-sm-4">Estado:</dt>
+        <dd class="col-sm-8"> <span class="badge
+            {% if mantencion.estado == 'Pendiente' %}bg-secondary
+            {% elif mantencion.estado == 'En curso' %}bg-primary
+            {% elif mantencion.estado == 'Realizada' %}bg-success
+            {% elif mantencion.estado == 'Atrasada' %}bg-danger
+            {% endif %}">{{ mantencion.estado }}</span>
+        </dd>
+        <dt class="col-sm-4">Última Mantención</dt>
+        <dd class="col-sm-8 ">{{ mantencion.mantencion_anterior.fecha_programada }}</dd>
+        <hr class="mt-2 mb-2">
+        <div class="section">
+            <h5 class="section-title h5">Repuestos Utilizados</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Repuesto</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in repuestos_usados %}
+                    <tr>
+                        <td>{{ r.repuesto.nombre }}</td>
+                        <td>{{ r.cantidad_usada }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2">Sin repuestos registrados</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </dl>
+</div>
