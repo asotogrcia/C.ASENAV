@@ -28,7 +28,7 @@ $('#nueva-mantencion').on('click', function () {
 });
 
 //Abrir modal de editar mantención
-$('.editar-mantencion').on('click', function () {
+$(document).on('click', '.editar-mantencion', function () {
     const id = $(this).data('id');
     $.get(`/mantenciones/mantenciones/${id}/editar_form/`, function (html) {
         $('#mantencionContent').html(html);
@@ -38,7 +38,7 @@ $('.editar-mantencion').on('click', function () {
 });
 
 //Vista de detalles de mantención
-$('.ver-mantencion').on('click', function () {
+$(document).on('click', '.ver-mantencion', function () {
     const id = $(this).data('id');
     $.get(`/mantenciones/mantenciones/${id}/ver/`, function (html) {
         $('#detalleMantencionContent').html(html);
@@ -97,6 +97,48 @@ function validarArchivos(input) {
         }
     }
 }
+
+//Finalizar Mantención
+$(document).on('click', '.finalizar-mantencion', function () {
+    const id = $(this).data('id');
+    $.get(`/mantenciones/mantenciones/${id}/finalizar/`, function (html) {
+        $('#finalizarMantencionModal #finalizarMantencionContent').html(html);
+        $('#form-finalizar-mantencion').attr('action', `/mantenciones/mantenciones/${id}/finalizar/`);
+        $('#finalizarMantencionModal').modal('show');
+    });
+});
+
+$(document).on('submit', '#form-finalizar-mantencion', function (e) {
+    e.preventDefault(); // evita que el navegador envíe el formulario
+    const url = $(this).attr('action');
+    const data = $(this).serialize();
+
+    $.post(url, data, function (response) {
+        if (response.success) {
+            $('#finalizarMantencionModal').modal('hide');
+            mostrarToast('Mantención finalizada correctamente', 'success');
+            // Actualizar tabla o recargar
+            setTimeout(() => location.reload(), 2000);
+        } else {
+            mostrarToast('Error al finalizar mantención', 'danger');
+        }
+    }).fail(function (xhr) {
+        $('#finalizarMantencionModal #finalizarMantencionContent').html(xhr.responseText);
+        mostrarToast('Error de validación o conexión', 'warning');
+    });
+});
+
+//Eliminación de Mantencion
+$(document).on('click', '.eliminar-mantencion', function () {
+    const id = $(this).data('id');
+    if (confirm('¿Estás seguro de que deseas eliminar este repuesto?')) {
+        $.post(`/mantenciones/mantenciones/delete/${id}/`, {}, function () {
+            cargarTablaMantenciones();
+            mostrarToast('Mantención eliminada correctamente.', 'danger');
+        });
+    }
+});
+
 
 function agregarRepuesto() {
     const html = $('.repuesto-item').first().clone();

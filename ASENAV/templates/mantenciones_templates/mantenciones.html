@@ -192,6 +192,22 @@
     </div>
 </div>
 
+<!-- Modal Finalizar Mantención -->
+<div class="modal fade" id="finalizarMantencionModal" tabindex="-1" aria-labelledby="finalizarMantencionTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-white">
+                <h5 class="modal-title" id="finalizarMantencionTitle">Finalizar Mantención</h5>
+                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body" id="finalizarMantencionContent">
+                {% comment %} Aquí se cargará el contenido vía AJAX {% endcomment %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
 
 {% block scripts %}

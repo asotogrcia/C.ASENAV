@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             labels: ['Preventivas', 'Correctivas'],
             datasets: [{
                 data: [65, 35],
-                backgroundColor: ['#034AA6', '#0468BF'],
+                backgroundColor: ['#FFC107', '#DC3545'],
                 borderWidth: 0
             }]
         },

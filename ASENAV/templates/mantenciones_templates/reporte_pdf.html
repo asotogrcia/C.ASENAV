@@ -39,7 +39,7 @@
     <p><strong>Encargado:</strong> {{ mantencion.encargado.first_name }} {{ mantencion.encargado.last_name }}</p>
     <p><strong>Fecha programada:</strong> {{ mantencion.fecha_programada }}</p>
     <p><strong>Fecha realizada:</strong> {{ mantencion.fecha_realizada }}</p>
-    <p><strong>Descripción realizada:</strong> {{ mantencion.descripcion_realizada }}</p>
+    <p><strong>Actividad realizada:</strong> {{ mantencion.descripcion_realizada }}</p>
 
     <div class="section">
         <h2>Repuestos utilizados</h2>
@@ -53,7 +53,7 @@
             <tbody>
                 {% for r in repuestos_usados %}
                 <tr>
-                    <td>{{ r.repuestos.repuesto.nombre }}</td>
+                    <td>{{ r.repuesto.nombre }}</td>
                     <td>{{ r.cantidad_usada }}</td>
                 </tr>
                 {% empty %}

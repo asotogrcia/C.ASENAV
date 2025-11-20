@@ -17,6 +17,7 @@ class Mantencion(models.Model):
     equipo = models.ForeignKey(Equipo, on_delete=models.CASCADE)
     encargado = models.ForeignKey( Usuario, on_delete=models.SET_NULL, null=True)
     fecha_programada = models.DateField()
+    fecha_realizada = models.DateField(blank=True, null=True)
     intervalo_dias = models.PositiveIntegerField( help_text="Días hasta la próxima mantención")
     descripcion_general = models.TextField()
     correos_notificacion = models.TextField( help_text="Separar correos por coma")
@@ -63,19 +64,15 @@ class Mantencion(models.Model):
 
     # Finaliza una mantención y crea una nueva automáticamente
     def finalizar_mantencion(self, descripcion_final):
-        # Se marca la mantención como realizada
         self.realizada = True
-        # Se guarda la descripción de la mantención realizada
         self.descripcion_realizada = descripcion_final
-        # Se mantiene el estado como "realizada"
+        self.fecha_realizada = timezone.now().date()
         self.estado = 'Realizada'
-        # Se guarda la mantención actualizada
         self.save()
 
-        # Se actualiza la última fecha de mantención del equipo
-        self.equipo.ultima_mantencion = timezone.now().date()
-        # Se guarda el equipo actualizado
+        self.equipo.ultima_mantencion = self.fecha_realizada
         self.equipo.save()
+
 
     def enviar_notificacion(self):
         # Aquí puedes integrar lógica con send_mail o Celery
