@@ -1,0 +1,9 @@
+<form id="form-finalizar-mantencion" method="post" action="">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="descripcion_realizada" class="form-label">Descripción de la mantención realizada</label>
+        <textarea name="descripcion_realizada" id="descripcion_realizada" class="form-control" rows="6" style="resize: none;"
+            required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Finalizar mantención</button>
+</form>
