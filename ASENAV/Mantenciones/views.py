@@ -17,7 +17,17 @@ from django.template.loader import render_to_string
 #DASHBOARD MANTENCIÓN
 @login_required
 def dashboard_mantenciones(request):
-    mantenciones = Mantencion.objects.select_related('equipo', 'encargado').order_by('-fecha_programada')[:50]
+    # 1. Obtenemos TODOS los registros (quitamos el [:50])
+    # Guardamos en una variable temporal 'lista_completa'
+    lista_completa = Mantencion.objects.select_related('equipo', 'encargado').order_by('-fecha_programada')
+
+    # 2. Aplicamos la Paginación (Igual que en tu otra vista)
+    # Cambia el '10' por el número de filas que quieras por página
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(lista_completa, 10) 
+    page_obj = paginator.get_page(page_number)
+
+    # Lógica de estadísticas (se mantiene igual)
     realizadas = Mantencion.objects.filter(estado='Realizada').count()
     atrasadas = Mantencion.objects.filter(estado='Atrasada').count()
     en_curso = Mantencion.objects.filter(estado='En curso').count()
@@ -28,31 +38,52 @@ def dashboard_mantenciones(request):
         'atrasadas': atrasadas,
         'en_curso': en_curso,
         'pendientes': pendientes,
-        'mantenciones': mantenciones,
+        
+        'page_obj': page_obj, 
+
+        'q': '' 
     })
+
 #TABLA MANTENCIÓN
 @login_required
 def mantenciones_tabla(request):
     q = request.GET.get('q', '').strip()
-    page = request.GET.get('page', 1)
+    page_number = request.GET.get('page', 1)
 
-    mantenciones = Mantencion.objects.select_related('equipo', 'encargado')
+    # Optimizamos la consulta con select_related
+    mantenciones = Mantencion.objects.select_related('equipo', 'encargado').all()
 
     if q:
         mantenciones = mantenciones.filter(
+            # 1. Buscamos por el nombre del equipo (CORRECTO)
             Q(equipo__nombre__icontains=q) |
-            Q(encargado__nombre__icontains=q) |
-            Q(descripcion_general__icontains=q)
+            
+            # 2. CORRECCIÓN: Buscamos por nombre o apellido del usuario encargado
+            Q(encargado__first_name__icontains=q) | 
+            Q(encargado__last_name__icontains=q)
         )
 
     mantenciones = mantenciones.order_by('-fecha_programada')
+    
     paginator = Paginator(mantenciones, 10)
-    mantenciones_paginadas = paginator.get_page(page)
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, 'mantenciones_templates/includes/tabla_mantenciones.html', {
-        'mantenciones': mantenciones_paginadas,
-        'q': q
-    })
+    context = {
+        'page_obj': page_obj,
+        'q': q,
+    }
+
+    # LÓGICA AJAX:
+    # Si la petición viene de JavaScript, devolvemos SOLO la tabla (el parcial)
+    es_ajax = request.headers.get('x-requested-with') == 'XMLHttpRequest'
+    print(f"¿Es petición AJAX?: {es_ajax}") # Mira esto en tu terminal negra
+
+    if es_ajax:
+        print("Entrando a renderizar PARCIAL")
+        return render(request, 'mantenciones_templates/includes/tabla_mantenciones.html', context)
+
+    print("Entrando a renderizar PADRE COMPLETO")
+    return render(request, 'mantenciones_templates/mantenciones.html', context)
 
 #VISTA MANTENCIÓN
 @login_required
@@ -186,7 +217,6 @@ def mantencion_finalizar(request, id):
 
 #REPORTE PDF
 @login_required
-@rol_requerido('administrador', 'supervisor', 'tecnico')
 def mantencion_reporte_pdf(request, id):
     mantencion = get_object_or_404(Mantencion, id=id)
     if not mantencion.realizada or not mantencion.descripcion_realizada:

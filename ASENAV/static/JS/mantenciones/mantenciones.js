@@ -1,19 +1,76 @@
-// Función para buscar mantenciones
-$(document).on('submit', '#form-busqueda-mantenciones', function (e) {
-    e.preventDefault();
-    const query = $(this).find('input[name="q"]').val();
-    $.get(`/mantenciones/mantenciones/tabla/?q=${query}`, function (html) {
-        $('').html(html);
+
+$(document).ready(function() {
+    
+    // 1. Manejo del Buscador
+    $(document).on('submit', '#form-busqueda-mantenciones', function (e) {
+        e.preventDefault();
+        const query = $(this).find('input[name="q"]').val();
+        
+        // Efecto visual opcional: baja la opacidad mientras carga
+        $('#mantencionesList').css('opacity', '0.5');
+
+        $.get(`/mantenciones/mantenciones/tabla/?q=${query}`, function (html) {
+            $('#mantencionesList').html(html);
+            $('#mantencionesList').css('opacity', '1');
+        })
+        .fail(function() {
+            console.error("Error al buscar mantenciones");
+            $('#mantencionesList').css('opacity', '1');
+        });
     });
+
+    // 2. Manejo de la Paginación (Clicks en "Anterior", "Siguiente", "1", "2"...)
+    $(document).on('click', '#mantencionesList .pagination a', function (e) {
+        e.preventDefault();
+        const url = $(this).attr('href');
+        
+
+        let href = $(this).attr('href');
+        const baseUrl = '/mantenciones/mantenciones/tabla/';
+        let urlFinal = href;
+        if (!href.includes(baseUrl)) {
+            // Si el href empieza con '?', lo concatenamos
+            urlFinal = baseUrl + href;
+        }
+
+        $('#mantencionesList').css('opacity', '0.5');
+
+        $.ajax({
+            url: urlFinal,
+            type: 'GET',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }, 
+            success: function(html) {
+                $('#mantencionesList').html(html);
+                $('#mantencionesList').css('opacity', '1');
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en paginación:", error);
+                $('#mantencionesList').css('opacity', '1');
+            }
+        });
+    });
+
+    // 3. Reactivar modales o tooltips si es necesario
+    // Si tus botones de editar/eliminar dejan de funcionar tras buscar, 
+    // avísame y agregamos aquí la reinicialización.
 });
 
-$(document).on('click', '.pagination a', function (e) {
-    e.preventDefault();
-    const url = $(this).attr('href');
-    $.get(url, function (html) {
-        $('').html(html);
-    });
-});
+// Función para buscar mantenciones
+// $(document).on('submit', '#form-busqueda-mantenciones', function (e) {
+//     e.preventDefault();
+//     const query = $(this).find('input[name="q"]').val();
+//     $.get(`/mantenciones/mantenciones/tabla/?q=${query}`, function (html) {
+//         $('').html(html);
+//     });
+// });
+
+// $(document).on('click', '.pagination a', function (e) {
+//     e.preventDefault();
+//     const url = $(this).attr('href');
+//     $.get(url, function (html) {
+//         $('').html(html);
+//     });
+// });
 
 
 
