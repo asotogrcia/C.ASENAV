@@ -1,9 +1,72 @@
-<form id="form-finalizar-mantencion" method="post" action="">
+<form id="formFinalizarMantencion" method="POST" action="{% url 'mantenciones:mantencion_finalizar' mantencion.id %}">
     {% csrf_token %}
-    <div class="mb-3">
-        <label for="descripcion_realizada" class="form-label">Descripción de la mantención realizada</label>
-        <textarea name="descripcion_realizada" id="descripcion_realizada" class="form-control" rows="6" style="resize: none;"
-            required></textarea>
+
+    <input type="hidden" name="repuestos_data" id="repuestosDataFinalizar">
+
+    <div class="modal-header text-white">
+        <h5 class="modal-title">Finalizar Mantención: <strong>{{ mantencion.equipo.nombre }}</strong></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
     </div>
-    <button type="submit" class="btn btn-success">Finalizar mantención</button>
+
+    <div class="modal-body">
+        <div class="mb-4">
+            <label for="descripcion_realizada" class="form-label fw-bold">Descripción del trabajo realizado:</label>
+            <textarea name="descripcion_realizada" id="descripcion_realizada" class="form-control" rows="4"
+                style="resize: none;" required placeholder="Detalle técnico de la solución..."></textarea>
+        </div>
+
+        <hr>
+
+        <h6 class="fw-bold mb-3">
+            <i class="bi bi-tools"></i> Repuestos Utilizados
+            <small class="text-muted fw-normal ms-2" style="font-size: 0.8rem;">(Se descontarán del stock)</small>
+        </h6>
+
+        <div class="card bg-light border-0 mb-3">
+            <div class="card-body p-2">
+                <div class="input-group">
+                    <select class="form-select" id="selRepFinalizar">
+                        <option value="">Seleccionar Repuesto...</option>
+                        {% for r in repuestos %}
+                        <option value="{{ r.id }}" data-nombre="{{ r.nombre }}" data-stock="{{ r.cantidad_stock }}">
+                            {{ r.nombre }} (Stock: {{ r.cantidad_stock }})
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                    <input type="number" class="form-control" id="cantRepFinalizar" placeholder="Cant."
+                        style="max-width: 90px;" min="1">
+
+                    <button type="button" class="btn btn-success" id="btnAgregarRepuestoFinalizar">
+                        <i class="bi bi-plus-lg"></i> Agregar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Repuesto</th>
+                        <th class="text-center" style="width: 80px;">Cant.</th>
+                        <th style="width: 50px;"></th>
+                    </tr>
+                </thead>
+                <tbody id="tablaRepuestosFinalizar">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="mensajeSinRepuestos" class="text-center text-muted small py-2 fst-italic">
+            No se han asignado repuestos a esta mantención.
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-check-circle-fill"></i> Confirmar Finalización
+        </button>
+    </div>
 </form>

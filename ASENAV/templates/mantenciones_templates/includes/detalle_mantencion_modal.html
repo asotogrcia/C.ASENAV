@@ -24,29 +24,5 @@
         <dt class="col-sm-4">Última Mantención</dt>
         <dd class="col-sm-8 ">{{ mantencion.mantencion_anterior.fecha_programada }}</dd>
         {% endif %}
-        <hr class="mt-2 mb-2">
-        <div class="section">
-            <h5 class="section-title h5">Repuestos Utilizados</h5>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Repuesto</th>
-                        <th>Cantidad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for r in repuestos_usados %}
-                    <tr>
-                        <td>{{ r.repuesto.nombre }}</td>
-                        <td>{{ r.cantidad_usada }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="2">Sin repuestos registrados</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
     </dl>
 </div>

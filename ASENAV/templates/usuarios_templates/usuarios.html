@@ -1,0 +1,32 @@
+{% extends "base/base_dashboard.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'CSS/usuarios/usuarios.css' %}">
+{% endblock styles %}
+
+{% block content %}
+<div class="container-fluid mt-5 justify-content-center">
+    <h2 class="fw-bold text-primary mb-5 mt-5 text-center">Gestión de Usuarios y Roles</h2>
+
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body">
+            <form id="form-busqueda-usuarios" class="input-group mb-3">
+                <input type="text" name="q" class="form-control"
+                    placeholder="Buscar por nombre, RUT, email o especialidad..." value="{{ q }}">
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+
+            <div id="contenedor-usuarios">
+                {% include "usuarios_templates/includes/tabla_usuarios.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'JS/usuarios/usuarios.js' %}"></script>
+{% endblock %}

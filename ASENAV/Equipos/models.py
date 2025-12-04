@@ -5,7 +5,7 @@ class Equipo(models.Model):
     ESTADOS = [
         ('Óptimo', 'Óptimo'),
         ('Advertencia', 'Advertencia'),
-        ('Critico', 'Crítico'),
+        ('Crítico', 'Crítico'),
         ('Fuera de Servicio', 'Fuera de Servicio'),
     ]
 

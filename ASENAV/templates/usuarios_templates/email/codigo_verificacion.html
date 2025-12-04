@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Código de Verificación</title>
+</head>
+<body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
+    
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f4; padding: 40px 0;">
+        <tr>
+            <td>
+                <table width="500" align="center" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    
+                    <tr>
+                        <td style="background-color: #0d6efd; padding: 30px; text-align: center;">
+                            <h1 style="color: #ffffff; margin: 0; font-size: 24px; letter-spacing: 1px;">ASENAV</h1>
+                            <p style="color: #e0e0e0; margin: 5px 0 0; font-size: 12px; text-transform: uppercase;">Seguridad y Acceso</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 40px 40px 30px;">
+                            <h2 style="color: #333333; margin-top: 0; text-align: center; font-size: 20px;">Verifica tu Cuenta</h2>
+                            
+                            <p style="color: #666666; line-height: 1.6; text-align: center; margin-bottom: 30px;">
+                                Hola <strong>{{ usuario.first_name }}</strong>,<br>
+                                Para completar tu registro en el sistema CMMS, utiliza el siguiente código de seguridad:
+                            </p>
+
+                            <div style="background-color: #f8f9fa; border: 2px dashed #0d6efd; border-radius: 8px; padding: 20px; text-align: center; margin: 0 auto 30px;">
+                                <span style="font-family: 'Courier New', Courier, monospace; font-size: 36px; font-weight: bold; color: #0d6efd; letter-spacing: 10px; display: block;">
+                                    {{ codigo }}
+                                </span>
+                            </div>
+
+                            <p style="color: #999999; font-size: 13px; text-align: center; margin-bottom: 0;">
+                                ⏳ Este código expirará en <strong>10 minutos</strong>.
+                            </p>
+                            <p style="color: #999999; font-size: 13px; text-align: center; margin-top: 5px;">
+                                Si no solicitaste este código, puedes ignorar este correo.
+                            </p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="background-color: #eeeeee; padding: 20px; text-align: center; color: #888888; font-size: 11px;">
+                            <p style="margin: 0;">&copy; {% now "Y" %} ASENAV. Todos los derechos reservados.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

@@ -1,39 +1,66 @@
 <form id="mantencion-form" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="row">
-        <div class="col-md-6">{{ form.equipo.label_tag }}{{ form.equipo }}</div>
-        <div class="col-md-6">{{ form.encargado.label_tag }}{{ form.encargado }}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">{{ form.fecha_programada.label_tag }}{{ form.fecha_programada }}</div>
-        <div class="col-md-6">{{ form.intervalo_dias.label_tag }}{{ form.intervalo_dias }}</div>
-    </div>
-    <div class="mb-3">{{ form.descripcion_general.label_tag }}{{ form.descripcion_general }}</div>
-    <div class="mb-3">{{ form.correos_notificacion.label_tag }}{{ form.correos_notificacion }}</div>
+    
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label class="form-label fw-bold">Equipo</label>
+            {{ form.equipo }} </div>
+        
+        <div class="col-md-6">
+            <label class="form-label fw-bold">Encargado</label>
+            <select name="encargado" class="form-select">
+                <option value="">Seleccionar Encargado...</option>
+                {% for user in encargados %}
+                    <option value="{{ user.id }}" {% if request.user.id == user.id %}selected{% endif %}>
+                        {{ user.first_name }} {{ user.last_name }} ({{ user.rol|title }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <div class="mb-3">
-        <label for="archivos">Archivos adjuntos</label>
-        <input type="file" name="archivos[]" multiple class="form-control" accept=".pdf,.doc,.docx,.xls,.xlsx,.xlsm"
-            onchange="validarArchivos(this)">
-    </div>
-    <div class="mb-3">
-        <h6>Repuestos utilizados</h6>
-        <div id="repuestos-container">
-            <div class="repuesto-item mb-2">
-                <select name="repuesto_id[]" class="form-select">
-                    {% for r in repuestos %}
-                        <option value="{{ r.id }}">{{ r.nombre }}</option>
-                    {% endfor %}
-                </select>
-                <input type="number" name="cantidad_usada[]" class="form-control mt-1" placeholder="Cantidad usada"
-                    min="1">
+        <div class="col-md-6">
+            <label class="form-label fw-bold">Fecha Programada</label>
+            {{ form.fecha_programada }}
+        </div>
+        
+        <div class="col-md-6">
+            <label class="form-label fw-bold">Intervalo (Días)</label>
+            {{ form.intervalo_dias }}
+        </div>
+
+        <div class="col-12">
+            <label class="form-label fw-bold">Descripción General</label>
+            {{ form.descripcion_general }}
+        </div>
+
+        <div class="col-12">
+            <label class="form-label fw-bold">
+                Correos de Notificación 
+            </label>
+            {{ form.correos_notificacion }}
+            <div class="form-text text-muted">
+                <i class="bi bi-info-circle"></i> Escribe los correos separados por una coma. Ej: <em>jefe@asenav.cl, tecnico@asenav.cl</em>
             </div>
         </div>
-        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="agregarRepuesto()">+ Agregar
-            repuesto</button>
+
+        <div class="col-12">
+            <label class="form-label fw-bold">
+                Archivos Adjuntos
+                <span class="badge bg-secondary ms-2">Se enviarán por correo</span>
+            </label>
+            <input type="file" name="archivos[]" multiple class="form-control" 
+                   accept=".pdf,.doc,.docx,.xls,.xlsx,.xlsm,.jpg,.png"
+                   onchange="validarArchivos(this)">
+            <div class="form-text">Máximo 3 archivos. Formatos: PDF, Word, Excel, Imágenes.</div>
+        </div>
     </div>
 
+    <hr class="my-4">
+
     <div class="text-end">
-        <button type="submit" class="btn btn-success">Guardar Mantención</button>
+        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-save"></i> Guardar y Notificar
+        </button>
     </div>
 </form>

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import environ
 import os
+import datetime
 
 from pathlib import Path
 
@@ -67,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middleware.LicenseCheckMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -126,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-cl'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Santiago'
 
 USE_I18N = True
 
@@ -152,6 +154,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Modelo de Autenticación
 AUTH_USER_MODEL = 'Usuarios.Usuario'
 
+#LOGIN
+LOGIN_URL = 'usuarios:login'
+
+#LOGOUT
+LOGOUT_URL = 'usuarios:logout'
+
+#REDIRECCIONES
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
+
 #Config SMTP
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env("EMAIL_HOST")
@@ -160,3 +172,6 @@ EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = env("EMAIL_USE_TLS") == "True"
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+
+#FECHA EXPIRACIÓN
+LICENSE_EXPIRATION_DATE = datetime.date(2026, 1, 3)

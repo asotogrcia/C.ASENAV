@@ -1,0 +1,141 @@
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Usuario / RUT</th>
+                <th>Contacto</th>
+                <th>Rol</th>
+                <th>Especialidad</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in page_obj %}
+            <tr>
+                <td>
+                    <div class="d-flex flex-column">
+                        <span class="fw-bold">{{ u.first_name }} {{ u.last_name }}</span>
+                        <small class="text-muted">{{ u.rut }}</small>
+                    </div>
+                </td>
+                
+                <td>
+                    <div class="d-flex flex-column">
+                        <span>{{ u.email }}</span>
+                        {% if u.telefono %}
+                        <small class="text-muted"><i class="bi bi-telephone"></i> {{ u.telefono }}</small>
+                        {% endif %}
+                    </div>
+                </td>
+
+                <td>
+                    <span class="badge rounded-pill
+                        {% if u.rol == 'administrador' %}bg-danger
+                        {% elif u.rol == 'supervisor' %}bg-warning text-dark
+                        {% elif u.rol == 'tecnico' %}bg-info text-dark
+                        {% else %}bg-secondary{% endif %}">
+                        {{ u.rol|title }}
+                    </span>
+                </td>
+
+                <td>{{ u.especialidad|default:"-" }}</td>
+
+                <td>
+                    {% if u.is_active %}
+                    <span class="text-success"><i class="bi bi-check-circle-fill"></i> Activo</span>
+                    {% else %}
+                    <span class="text-danger"><i class="bi bi-x-circle-fill"></i> Inactivo</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                        data-bs-target="#modalUsuario{{ u.id }}">
+                        <i class="bi bi-pencil-square"></i> Editar
+                    </button>
+
+                    <div class="modal fade" id="modalUsuario{{ u.id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content text-start"> <form action="{% url 'usuarios:actualizar_usuario' u.id %}" method="POST" class="form-editar-usuario">
+                                    {% csrf_token %}
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Editar Usuario: <strong>{{ u.username }}</strong></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        
+                                        <h6 class="text-primary border-bottom pb-2 mb-3">Datos Personales</h6>
+                                        <div class="row g-3 mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Nombre</label>
+                                                <input type="text" name="first_name" class="form-control" value="{{ u.first_name }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Apellido</label>
+                                                <input type="text" name="last_name" class="form-control" value="{{ u.last_name }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">RUT</label>
+                                                <input type="text" name="rut" class="form-control" value="{{ u.rut }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Teléfono</label>
+                                                <input type="text" name="telefono" class="form-control" value="{{ u.telefono|default:'' }}">
+                                            </div>
+                                        </div>
+
+                                        <h6 class="text-primary border-bottom pb-2 mb-3">Cuenta y Contacto</h6>
+                                        <div class="mb-3">
+                                            <label class="form-label">Correo Electrónico</label>
+                                            <input type="email" name="email" class="form-control" value="{{ u.email }}">
+                                        </div>
+
+                                        <h6 class="text-primary border-bottom pb-2 mb-3">Roles y Permisos</h6>
+                                        <div class="row g-3 mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Rol del Sistema</label>
+                                                <select name="rol" class="form-select">
+                                                    <option value="usuario" {% if u.rol == 'usuario' %}selected{% endif %}>Usuario</option>
+                                                    <option value="tecnico" {% if u.rol == 'tecnico' %}selected{% endif %}>Técnico</option>
+                                                    <option value="supervisor" {% if u.rol == 'supervisor' %}selected{% endif %}>Supervisor</option>
+                                                    <option value="administrador" {% if u.rol == 'administrador' %}selected{% endif %}>Administrador</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Especialidad (Opcional)</label>
+                                                <input type="text" name="especialidad" class="form-control" value="{{ u.especialidad|default:'' }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="row g-3 mb-3 d-flex align-items-center justify-content-center">
+                                            <div class="col-md-10">
+                                                <label class="form-check-label fw-bold" for="checkActive{{ u.id }}">
+                                                    Usuario Activo (Permitir acceso)
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input class="form-check-input" type="checkbox" name="is_active"
+                                                    id="checkActive{{ u.id }}" {% if u.is_active %}checked{% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    </td> </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center p-4">No se encontraron usuarios.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include "base/includes/paginador.html" with url_destino='gestion_usuarios' %}

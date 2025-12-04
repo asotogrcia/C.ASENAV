@@ -37,7 +37,9 @@
                 <li><a href="{% url "mantenciones:mantenciones_dashboard" %}" class="sidebar-link" data-url="#"><i class="fa-solid fa-screwdriver-wrench"></i> Mantenciones</a></li>
                 <li><a href="{% url "repuestos:repuestos" %}" class="sidebar-link" data-url="#"><i class="fa-solid fa-box"></i> Stock</a></li>
                 <li><a href="{% url "equipos:equipos_dashboard" %}" class="sidebar-link" data-url="#"><i class="fa-solid fa-screwdriver"></i> Equipos</a></li>
-                <li><a href="#" class="sidebar-link" data-url="#"><i class="fa-solid fa-calendar-days"></i> Calendario</a></li>
+                {% if user.rol == "administrador" %}
+                    <li><a href="{% url "usuarios:gestion_usuarios" %}" class="sidebar-link" data-url="#"><i class="fa-solid fa-user"></i> Gestionar Usuarios</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>

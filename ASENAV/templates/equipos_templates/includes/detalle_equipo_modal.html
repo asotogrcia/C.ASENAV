@@ -13,8 +13,17 @@
         <dd class="col-sm-8">{{ equipo.ubicacion|default:"—" }}</dd>
 
         <dt class="col-sm-4">Estado</dt>
-        <dd class="col-sm-8">{{ equipo.estado }}</dd>
-
+        
+        <dd class="col-sm-8">
+            <span class="badge 
+                    {% if equipo.estado == 'Advertencia' %}bg-warning
+                    {% elif equipo.estado == 'Fuera de Servicio' %}bg-secondary
+                    {% elif equipo.estado == 'Óptimo' %}bg-success
+                    {% elif equipo.estado == 'Crítico' %}bg-danger
+                    {% endif %}">
+                    {{ equipo.estado }}
+            </span>
+        </dd>
         <dt class="col-sm-4">Activo</dt>
         <dd class="col-sm-8">
             {% if equipo.activo %}

@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover table-bordered align-middle">
         <thead class="table-light">
             <tr>
                 <th>Equipo</th>
@@ -13,10 +13,10 @@
             {% for m in page_obj %}
             <tr>
                 <td>{{ m.equipo.nombre }}</td>
-                <td class=>{{ m.fecha_programada|date:"d/m/Y" }}</td>
+                <td>{{ m.fecha_programada|date:"d/m/Y" }}</td>
                 <td class="text-center">
                     <span class="badge 
-                    {% if m.estado == 'Pendiente' %}bg-secondary
+                    {% if m.estado == 'Pendiente' %}bg-warning
                     {% elif m.estado == 'En curso' %}bg-primary
                     {% elif m.estado == 'Realizada' %}bg-success
                     {% elif m.estado == 'Atrasada' %}bg-danger
@@ -24,33 +24,98 @@
                         {{ m.estado }}
                     </span>
                 </td>
-                <td>{{ m.encargado.first_name }} {{ m.encargado.last_name }}</td>
+                <td>
+                    {% if m.encargado %}
+                        {{ m.encargado.first_name }} {{ m.encargado.last_name }}
+                    {% else %}
+                        <span class="text-muted">Sin asignar</span>
+                    {% endif %}
+                </td>
                 <td class="text-center">
                     <button class="btn btn-sm btn-outline-info ver-mantencion" data-id="{{ m.id }}">
                         <i class="bi bi-eye"></i>
                     </button>
+
                     {% if request.user.rol != 'usuario' and m.estado != 'Realizada' %}
-                    <button class="btn btn-sm btn-outline-warning editar-mantencion" data-id="{{ m.id }}">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger eliminar-mantencion" data-id="{{ m.id }}">
-                        <i class="bi bi-trash"></i>
-                    </button>
+                    
+                        <button class="btn btn-sm btn-outline-warning editar-mantencion" data-id="{{ m.id }}">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+
+                        <button class="btn btn-sm btn-outline-danger eliminar-mantencion" data-id="{{ m.id }}">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     {% endif %}
+
                     {% if m.estado != 'Realizada' and request.user.rol != 'usuario' %}
-                    <button class="btn btn-outline-success btn-sm finalizar-mantencion" data-id="{{ m.id }}">
-                        <i class="bi bi-check-circle"></i>
-                    </button>
+                        <button class="btn btn-outline-success btn-sm finalizar-mantencion" data-id="{{ m.id }}">
+                            <i class="bi bi-check-circle"></i>
+                        </button>
                     {% else %}
-                    <a href="{% url 'mantenciones:mantencion_reporte_pdf' m.id %}" target="_blank"
-                        class="btn btn-outline-dark btn-sm">
-                        <i class="bi bi-file-earmark-pdf"></i>
-                    </a>
+                        <a href="{% url 'mantenciones:mantencion_reporte_pdf' m.id %}" target="_blank" class="btn btn-outline-dark btn-sm">
+                            <i class="bi bi-file-earmark-pdf"></i>
+                        </a>
                     {% endif %}
-                </td>
+
+                    {% if request.user.rol != 'usuario' and m.estado != 'Realizada' %}
+                    <div class="modal fade" id="modalMantencion{{ m.id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content text-start">
+                                <form action="{% url 'mantenciones:mantencion_editar' m.id %}" method="POST" class="form-editar-mantencion">
+                                    {% csrf_token %}
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Editar: <strong>{{ m.equipo.nombre }}</strong></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Fecha Programada</label>
+                                                <input type="date" name="fecha_programada" class="form-control" value="{{ m.fecha_programada|date:'Y-m-d' }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Estado</label>
+                                                <select name="estado" class="form-select">
+                                                    {% for val, nom in m.ESTADOS %}
+                                                    <option value="{{ val }}" {% if m.estado == val %}selected{% endif %}>{{ nom }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Encargado</label>
+                                                <select name="encargado" class="form-select">
+                                                    <option value="">Sin Asignar</option>
+                                                    {% for u in encargados %}
+                                                    <option value="{{ u.id }}" {% if m.encargado_id == u.id %}selected{% endif %}>
+                                                        {{ u.first_name }} {{ u.last_name }}
+                                                    </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Intervalo (Días)</label>
+                                                <input type="number" name="intervalo_dias" class="form-control" value="{{ m.intervalo_dias }}">
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label">Descripción General</label>
+                                                <textarea name="descripcion_general" class="form-control" rows="2">{{ m.descripcion_general }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
-{% include "base/includes/paginador.html"%}
+
+{% include "base/includes/paginador.html" %}
