@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card text-white bg-secondary mb-3">
+            <div class="card text-white bg-warning mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Pendientes</h5>
                     <p class="card-text display-6">{{ pendientes }}</p>
@@ -190,17 +190,9 @@
 </div>
 
 <!-- Modal Finalizar Mantención -->
-<div class="modal fade" id="finalizarMantencionModal" tabindex="-1" aria-labelledby="finalizarMantencionTitle" aria-hidden="true">
+<div class="modal fade" id="finalizarMantencionModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header text-white">
-                <h5 class="modal-title" id="finalizarMantencionTitle">Finalizar Mantención</h5>
-                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-            <div class="modal-body" id="finalizarMantencionContent">
-                {% comment %} Aquí se cargará el contenido vía AJAX {% endcomment %}
-            </div>
-        </div>
+        <div class="modal-content" id="finalizarMantencionContainer"></div>
     </div>
 </div>
 
